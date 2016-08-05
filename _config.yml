@@ -8,6 +8,8 @@ subtitle:
 description:
 author: Joseph Han
 language:
+- zh-cn
+- en
 timezone: NZ
 
 # URL
@@ -71,4 +73,4 @@ deploy:
   type: git
   repo: git@github.com:joseph-bing-han/joseph-bing-han.github.io.git
   branch: master
-  message: 自动部署
+  message: 自动部署 at {{ now('YYYY-MM-DD HH:mm:ss') }}
