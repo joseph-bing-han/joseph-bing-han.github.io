@@ -68,4 +68,7 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:joseph-bing-han/joseph-bing-han.github.io.git
+  branch: master
+  message: 自动部署
