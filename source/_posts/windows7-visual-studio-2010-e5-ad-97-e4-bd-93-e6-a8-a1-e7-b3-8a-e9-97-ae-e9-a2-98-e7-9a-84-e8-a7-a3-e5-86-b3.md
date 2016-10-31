@@ -1,11 +1,11 @@
 ---
 title: "Windows7 Visual Studio 2010 字体模糊问题的解决\t "
 id: 40
-categories:
+tag:
   - C++
   - 开发相关
 date: 2011-07-10 10:52:21
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

@@ -1,11 +1,11 @@
 ---
 title: Ubuntu下Java环境设置
 id: 166
-categories:
+tag:
   - java
   - Linux
 date: 2014-08-15 10:06:53
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

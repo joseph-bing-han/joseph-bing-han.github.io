@@ -1,11 +1,11 @@
 ---
 title: Asterisk manager API（AMI）文档(中文版)
 id: 37
-categories:
+tag:
   - asterisk
   - 开发相关
 date: 2011-07-10 10:48:15
-tags:
+
 ---
 
 转自[seven407的专栏](http://blog.csdn.net/seven407/article/details/5292110)

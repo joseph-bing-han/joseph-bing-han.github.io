@@ -1,13 +1,13 @@
 ---
 title: 为bitbucket.org设置ssh代理
 id: 125
-categories:
+tag:
   - git
   - Linux
   - shell
   - 开发相关
 date: 2013-06-11 11:42:32
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

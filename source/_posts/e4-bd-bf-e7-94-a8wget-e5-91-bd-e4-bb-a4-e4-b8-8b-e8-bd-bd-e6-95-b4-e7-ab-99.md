@@ -1,11 +1,11 @@
 ---
 title: 使用wget命令下载整站
 id: 136
-categories:
+tag:
   - Linux
   - shell
 date: 2014-02-19 01:51:04
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

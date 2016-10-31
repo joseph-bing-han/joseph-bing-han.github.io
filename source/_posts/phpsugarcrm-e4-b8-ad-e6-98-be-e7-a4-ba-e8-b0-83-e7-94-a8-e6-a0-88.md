@@ -1,11 +1,11 @@
 ---
 title: PHP(SugarCRM)中显示调用栈
 id: 99
-categories:
+tag:
   - php
   - 开发相关
 date: 2012-11-19 21:12:17
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

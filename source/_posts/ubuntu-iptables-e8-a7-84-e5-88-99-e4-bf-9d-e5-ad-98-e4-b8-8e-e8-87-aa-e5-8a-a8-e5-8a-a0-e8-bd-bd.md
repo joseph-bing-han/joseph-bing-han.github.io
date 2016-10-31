@@ -1,10 +1,10 @@
 ---
 title: ubuntu iptables规则保存与自动加载
 id: 133
-categories:
+tag:
   - Linux
 date: 2014-02-06 01:10:57
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

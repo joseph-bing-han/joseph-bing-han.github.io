@@ -1,10 +1,10 @@
 ---
 title: Ubuntu Flash 乱码修正
 id: 28
-categories:
+tag:
   - Linux
 date: 2011-07-10 10:41:50
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

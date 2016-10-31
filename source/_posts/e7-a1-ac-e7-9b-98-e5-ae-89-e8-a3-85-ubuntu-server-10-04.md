@@ -1,10 +1,10 @@
 ---
 title: 硬盘安装 Ubuntu Server 10.04
 id: 33
-categories:
+tag:
   - Linux
 date: 2011-07-10 10:44:16
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

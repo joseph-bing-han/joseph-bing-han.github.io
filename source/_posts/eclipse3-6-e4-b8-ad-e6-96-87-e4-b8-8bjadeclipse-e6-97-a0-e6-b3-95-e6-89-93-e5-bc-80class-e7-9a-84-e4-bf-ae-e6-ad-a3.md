@@ -1,11 +1,11 @@
 ---
 title: Eclipse3.6 中文下Jadeclipse无法打开class的修正
 id: 64
-categories:
+tag:
   - java
   - 开发相关
 date: 2011-07-12 16:14:26
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

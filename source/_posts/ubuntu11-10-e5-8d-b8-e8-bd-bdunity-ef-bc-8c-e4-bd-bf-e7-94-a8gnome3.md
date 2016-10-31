@@ -1,10 +1,10 @@
 ---
 title: UBUNTU11.10 卸载Unity，使用Gnome3
 id: 70
-categories:
+tag:
   - Linux
 date: 2012-01-17 16:05:41
-tags:
+
 ---
 
 <div>

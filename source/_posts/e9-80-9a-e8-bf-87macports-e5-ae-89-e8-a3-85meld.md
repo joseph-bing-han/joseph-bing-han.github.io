@@ -1,10 +1,10 @@
 ---
 title: 通过MacPorts安装bash自动补全插件
 id: 140
-categories:
+tag:
   - OSX
 date: 2014-02-20 11:30:04
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

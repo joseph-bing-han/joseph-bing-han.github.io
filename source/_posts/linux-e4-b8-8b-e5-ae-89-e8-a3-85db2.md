@@ -1,11 +1,11 @@
 ---
 title: Linux下安装DB2
 id: 117
-categories:
+tag:
   - DB2
   - Linux
 date: 2012-12-18 22:34:31
-tags:
+
 ---
 
 参考文献：

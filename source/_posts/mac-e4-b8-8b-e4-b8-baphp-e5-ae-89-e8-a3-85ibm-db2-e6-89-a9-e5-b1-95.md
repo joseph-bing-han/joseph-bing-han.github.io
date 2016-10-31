@@ -1,12 +1,12 @@
 ---
 title: Mac下为php安装ibm_db2扩展
 id: 147
-categories:
+tag:
   - DB2
   - OSX
   - 开发相关
 date: 2014-03-31 14:15:16
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

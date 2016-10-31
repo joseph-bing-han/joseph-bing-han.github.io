@@ -1,12 +1,12 @@
 ---
 title: Xdebug调试信息不显示为html格式
 id: 9
-categories:
+tag:
   - Linux
   - php
   - 开发相关
 date: 2011-07-10 10:23:22
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](http://ffblog.sinaapp.com "Blog of Joseph Han")

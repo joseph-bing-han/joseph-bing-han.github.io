@@ -1,11 +1,11 @@
 ---
 title: Google App Engine中使用带有继承关系的持久化类(JDO)
 id: 21
-categories:
+tag:
   - java
   - 开发相关
 date: 2011-07-10 10:37:37
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

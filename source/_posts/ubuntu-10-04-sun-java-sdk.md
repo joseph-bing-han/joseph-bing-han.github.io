@@ -1,12 +1,12 @@
 ---
 title: Ubuntu 10.04 sun-java-sdk
 id: 26
-categories:
+tag:
   - java
   - Linux
   - 开发相关
 date: 2011-07-10 10:40:28
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

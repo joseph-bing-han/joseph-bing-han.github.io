@@ -1,10 +1,10 @@
 ---
 title: 神州T1600笔记本 安装Ubuntu10.04Desktop
 id: 35
-categories:
+tag:
   - Linux
 date: 2011-07-10 10:45:36
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

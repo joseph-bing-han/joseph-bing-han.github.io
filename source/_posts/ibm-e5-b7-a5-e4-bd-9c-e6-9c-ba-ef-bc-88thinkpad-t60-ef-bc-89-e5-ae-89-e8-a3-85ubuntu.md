@@ -1,10 +1,10 @@
 ---
 title: IBM工作机（ThinkPad T60）安装ubuntu
 id: 74
-categories:
+tag:
   - Linux
 date: 2012-03-13 15:30:48
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

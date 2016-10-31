@@ -1,11 +1,11 @@
 ---
 title: System.getProperty可以获取的内容
 id: 23
-categories:
+tag:
   - java
   - 开发相关
 date: 2011-07-10 10:38:47
-tags:
+
 ---
 
 java.version Java 运行时环境版本

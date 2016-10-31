@@ -1,12 +1,12 @@
 ---
 title: eclipse3.6 加中文包后自动提示/补全信息显示错误
 id: 14
-categories:
+tag:
   - java
   - 开发相关
   - 未分类
 date: 2011-07-10 10:29:30
-tags:
+
 ---
 
 <span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")

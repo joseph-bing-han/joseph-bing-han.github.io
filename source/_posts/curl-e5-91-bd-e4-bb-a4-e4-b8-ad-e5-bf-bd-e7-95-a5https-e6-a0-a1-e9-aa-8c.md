@@ -1,11 +1,11 @@
 ---
 title: curl 命令中忽略https校验
 id: 169
-categories:
+tag:
   - Linux
   - shell
 date: 2014-12-08 15:57:54
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")

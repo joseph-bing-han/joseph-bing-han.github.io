@@ -1,12 +1,12 @@
 ---
 title: 32位Ubuntu Desktop 10.04编译HiPop for php
 id: 107
-categories:
+tag:
   - Linux
   - php
   - 开发相关
 date: 2012-12-07 02:58:41
-tags:
+
 ---
 
 转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
