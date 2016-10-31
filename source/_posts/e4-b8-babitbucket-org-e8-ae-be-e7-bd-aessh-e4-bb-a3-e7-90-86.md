@@ -10,7 +10,7 @@ date: 2013-06-11 11:42:32
 tags:
 ---
 
-转载请注明来源:[非凡软件工作室博客](http://blog.feifansoft.tk/ "非凡软件工作室博客")
+转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
 
 最近[https://bitbucket.org](https://bitbucket.org)被墙，推送代码受到了影响。
 

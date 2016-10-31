@@ -8,7 +8,7 @@ date: 2014-02-19 01:51:04
 tags:
 ---
 
-转载请注明来源:[<span style="color: #ff0000;">非凡软件工作室博客</span>](http://blog.feifansoft.tk/ "非凡软件工作室博客")
+转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
 
 最近想做个背新概念英语单词的应用给自己用,需要从一个网站上下载mp3资源,于是决定对这个网站进行整站下载后在整理数据。
 

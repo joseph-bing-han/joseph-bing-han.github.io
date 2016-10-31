@@ -9,7 +9,7 @@ date: 2014-03-31 14:15:16
 tags:
 ---
 
-转载请注明来源:[<span style="color: #ff0000;">非凡软件工作室博客</span>](http://blog.feifansoft.tk/ "非凡软件工作室博客")
+转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
 
 <span style="color: #000000;">在Mac下用pecl install ibm_db2为php安装db2扩展一直不成功.
 今日一同事提点下终于安装上了.</span>

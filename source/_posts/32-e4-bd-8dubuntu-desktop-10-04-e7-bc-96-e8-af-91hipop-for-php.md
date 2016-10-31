@@ -9,7 +9,7 @@ date: 2012-12-07 02:58:41
 tags:
 ---
 
-转载请注明来源:[非凡软件工作室博客](http://blog.feifansoft.tk/ "非凡软件工作室博客")
+转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
 
 最进想实验Facebook的Hipop for php
 结果发现官方支持的是64位系统，在我的系统中无法安装。

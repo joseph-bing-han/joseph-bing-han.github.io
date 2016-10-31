@@ -7,7 +7,7 @@ date: 2014-02-06 01:10:57
 tags:
 ---
 
-转载请注明来源:[<span style="color: #ff0000;">非凡软件工作室博客</span>](http://blog.feifansoft.tk/ "非凡软件工作室博客")
+转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
 
 ubuntu下想保存iptables规则,可以iptables-persistent
 sudo apt-get install iptables-persistent

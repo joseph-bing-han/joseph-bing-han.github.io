@@ -8,7 +8,7 @@ date: 2012-11-19 21:12:17
 tags:
 ---
 
-转载请注明来源:[非凡软件工作室博客](http://blog.feifansoft.tk/ "非凡软件工作室博客")
+转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
 
 最近调试SugarCRM时，总觉得SQL日志内容过于简单，无法查看该条SQL的调用栈，不利于分析SQL的层级关系。于是google了一下PHP输出调用栈的函数，找到结果如下：
 
