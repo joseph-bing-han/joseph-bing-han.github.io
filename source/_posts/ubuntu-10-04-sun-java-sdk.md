@@ -9,7 +9,7 @@ date: 2011-07-10 10:40:28
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 今天装red5时才注意到
 ubuntu 10.04默认安装的jdk居然是open-jdk

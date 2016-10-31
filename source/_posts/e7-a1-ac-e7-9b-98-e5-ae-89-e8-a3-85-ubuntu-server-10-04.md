@@ -7,7 +7,7 @@ date: 2011-07-10 10:44:16
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 工作用的台机的Ubuntu Desktop从9.10升级到10.04后出了各种各样的问题，为了彻底解决，决定重新安装。这次直接装Server版，然后手工装ubuntu-desktop。安装过程如下：
 **

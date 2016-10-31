@@ -8,7 +8,7 @@ date: 2011-07-10 10:37:37
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 最近在写个实用的Google App Engine应用--家庭记账系统,用于以家庭为单位,记录收支账目.
 开发中,想实现一个带有继承关系的持久化类(JDO方式),以便在父类中实现例如id,createDate,createBy,deleted之类的,

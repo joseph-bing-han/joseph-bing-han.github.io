@@ -8,7 +8,7 @@ date: 2011-07-12 16:14:26
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 jadclipse不能运行 点击类就报 Unmatched braces in the pattern 错误
 在网上找到的都是用切回英文的办法,很不爽,这样我还费劲装什么中文语言包干嘛?因噎废食啊!

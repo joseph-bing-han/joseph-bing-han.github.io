@@ -8,7 +8,7 @@ date: 2011-07-10 10:52:21
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 最近为了编译pandion最新版,安装了Visual Studio 2010,系统是windows7,安装后发现非常悲剧.
 

@@ -9,7 +9,7 @@ date: 2011-07-10 10:27:25
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 今天是重装系统后第一次远程连接MySQL,报错
 ERROR 2003 (HY000): Can't connect to MySQL server on '10.4.2.183' (111)

@@ -7,7 +7,7 @@ date: 2011-07-10 10:45:36
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 我的笔记本是神州T1600的，集成的SIS的显示芯片，在linux下兼容性不是很好，经常会出各种问题。最新版的ubuntu10.04已经出了，预计对这倒霉本子支持会好一点，安装过程如下：
 1.在Windows7下进行wubi模式安装，修改**Safe graphic mode**<span style="font-family: 宋体;">的参数，追加</span><span style="color: #ff0000; font-family: 宋体;"> vga=788 <span style="color: #000000;">重启后</span></span>选**Safe graphic mode**安装

@@ -7,7 +7,7 @@ date: 2012-03-13 15:41:18
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](../ "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](../ "Blog of Joseph Han")
 
 现在使用的ThinkPad T60上的ubuntu中有两个JVM,一个是Oracle的1.7另一个是IBM自己的1.6，默认是IBM的
 但用默认的JVM运行netbeans时，界面不是仿GTK的而是JVM的，没有时间研究怎么设置JVM了，直接修改配置文件的默认JDK路径

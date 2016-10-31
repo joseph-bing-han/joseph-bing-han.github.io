@@ -9,7 +9,7 @@ date: 2011-07-10 10:23:22
 tags:
 ---
 
-<span style="color: #ff0000;">转载请注明来源:</span>[非凡软件工作室博客](http://ffblog.sinaapp.com "非凡软件工作室博客")
+<span style="color: #ff0000;">转载请注明来源:</span>[Blog of Joseph Han](http://ffblog.sinaapp.com "Blog of Joseph Han")
 
 重装系统后,php页面里内的调试信息不按html格式显示
 开始以为是忘记装php5-xdebug.so的问题,装了xdebug还是不行

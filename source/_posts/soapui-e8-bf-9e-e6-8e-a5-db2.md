@@ -9,7 +9,7 @@ date: 2015-05-07 22:19:05
 tags:
 ---
 
-转载请注明来源:[非凡软件工作室博客](http://blog.feifansoftware.tk/ "非凡软件工作室博客")
+转载请注明来源:[Blog of Joseph Han](http://blog.joseph-han.net/ "Blog of Joseph Han")
 
 今天用SoapUI连接DB2,无论如何设置都不成功,Google的结果也没什么帮助.
 无意中发现,要使用JDBC连接DB2,需要先添加DB2驱动的jar包.
