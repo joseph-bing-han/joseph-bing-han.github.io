@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Linux下安装DB2 - Joseph Han | Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://joseph-bing-han.github.io/2012/12/18/linux-e4-b8-8b-e5-ae-89-e8-a3-85db2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
+                            
+                              <a class="tag" href="/tags/#DB2" title="DB2">DB2</a>
+                            
+                        </div>
+                        <h1>Linux下安装DB2</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Joseph Han on
+                            2012-12-18
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog of Joseph Han</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>参考文献：</p>
+<p><a href="http://www.ibm.com/developerworks/forums/thread.jspa?threadID=187514" target="_blank" rel="noopener">How-to: Ubuntu 7.10 Server x86 32-bit and DB2 Express-C v9.5</a></p>
+<p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/index.jsp?topic=/com.ibm.db2.luw.qb.dbconn.doc/doc/c0004770.html" target="_blank" rel="noopener">DB2 v9.7 Infomation Center</a></p>
+<p>&nbsp;</p>
+<p>场景：在IBM System x3550服务器上，Ubuntu Server 8.0.4操作系统中以db2_install 命令安装DB2 v9.7 ESE trial数据库。</p>
+<p>&nbsp;</p>
+<p>一.安装前的步骤</p>
+<p>1.安装几个包，执行命令：</p>
+<p>sudo apt-get install libaio1<br>sudo apt-get install libstdc++5</p>
+<p>&nbsp;</p>
+<p>2.copy安装文件到目标系统，并解压缩。如果是从windwos解压缩完再传到Ubuntu上，那么需要设置安装文件及相关的文件以可执行属性。</p>
+<p>&nbsp;</p>
+<p>3.设置ulimit（Server版这步就略过了）</p>
+<hr>
+<p>﻿修改 Ubuntu ulimit 限制</p>
+<div>
+
+<p>最近，网站一到高峰期，CPU就会飙升到100%，但内存，IO，网络等一切正常，Google了一下，有可能是ulimit的问题，马上查看文件句柄数限制<br><code>ulimit -n</code><br>得到的结果是：1024，这个值对生产中的服务显得偏小。<br>网上给出的解决方案，大部分是直接输入<br><code>ulimit -SHn 51200 # 51200可自己根据应用调整</code><br>此法缺点很明显，一旦退出登陆，设置就失效了。<br>也有说直接把该命令写到/etc/rc.d/rc.local中的，今天找到一个正确的做法<br>1.打开/etc/security/limits.conf，里面有很详细的注释，找到如下设置(如果没有就插入)<br>` * soft nofile 51200</p>
+<ul>
+<li>hard nofile 51200 `</li>
+</ul>
+<p>2.编辑/etc/pam.d/common-session，加入一行<br><code>session required pam_limits.so</code><br>3.编辑/etc/profile，加入<br><code>ulimit -SHn 51200</code><br>重启服务器，再次登陆，查看句柄数，已经正确设置为51200。<br>如果有碰到类似情况，可以检查一下看看是不是文件句柄数设置太小引起的。</p>
+</div>
+-------------------------------------
+
+<p>&nbsp;</p>
+<p>4.修改内核参数</p>
+<p>1)查看内核参数</p>
+<p>ipcs -l</p>
+<p>显示如下：</p>
+<div>cuser@localhost:~$ ipcs -l
+------ Shared Memory Limits --------
+max number of segments = 4096
+max seg size (kbytes) = 32768
+max total shared memory (kbytes) = 8388608
+min seg size (bytes) = 1
+------ Semaphore Limits --------
+max number of arrays = 128
+max semaphores per array = 250
+max semaphores system wide = 32000
+max ops per semop call = 32
+semaphore max value = 32767
+------ Messages: Limits --------
+max queues system wide = 16
+max size of message (bytes) = 8192
+default max size of queue (bytes) = 16384</div>
+&nbsp;
+
+<p>2)编辑/etc/sysctl.conf文件。如果此文件不存在，那么应创建它。加入如下内容：</p>
+<div>kernel.sem=250 256000 32 1024
+#示例：用于 64 位系统的 shmmax
+kernel.shmmax=1073741824
+#示例：用于4GB内存的 90% 的 shmall
+kernel.shmall=943718
+kernel.msgmax=65535
+kernel.msgmnb=65535</div>
+对于这些参数的说明，参考DB2 infocenter：
+
+<p>建议将 SHMMAX 值设置为与系统上物理内存量相等。然而，x86 系统上需要的最小值为 268435456（256 MB），而在 64 位系统上，该值将为 1073741824（1 GB）。<br>缺省情况下，SHMALL 设置为 8 GB（8388608 KB = 8 GB）。如果您具有的物理内存超过此值，并且要将该物理内存用于  DB2，那么此参数增大到大约是计算机的物理内存的 90%。例如，假定计算机系统上有 16 GB 内存，并将这些内存主要用于 DB2，那么  SHMALL 应该设置为 3774873（16 GB 的 90% 为 14.4 GB；将 14.4 GB 除以 4  KB（这是基页大小）得到的结果为 3774873）。IPCS 输出已将 SHMALL  转换为千字节（KB）。这是因为内核需要将此值作为页数。如果要升级到 DB2 版本 9.7 并且没有使用缺省 SHMALL 设置，那么必须将  SHMALL 设置另外增大 4 GB。快速通信管理器（FCM）要求这样增大内存，以供另外的缓冲区或信道使用。<br>内核参数 sem 由以下四个标记组成：SEMMSL、SEMMNS、SEMOPM 和 SEMMNI。SEMMNS 是 SEMMSL 乘以  SEMMNI 的结果。数据库管理器要求根据需要增大数组的数目（SEMMNI）。通常，SEMMNI  应两倍于系统上预期的最大代理程序数乘以数据库服务器计算机上的逻辑分区数再加上数据库服务器计算机上的本地应用程序连接数。<br>MSGMNI 将影响可以启动的代理进程数，MSGMAX 将影响一个队列中可以发送的消息大小，而 MSGMNB 将影响队列大小。<br>应将 MSGMAX 更改为 64 KB（即，65535 个字节），MSGMNB 应增大为 65535。</p>
+<p>&nbsp;</p>
+<p>3)运行sysctl 时附带-p参数，以从缺省文件/etc/sysctl.conf中装入sysctl设置：</p>
+<p>sudo sysctl -p</p>
+<p>&nbsp;</p>
+<p>二.安装数据库</p>
+<p>1.运行安装命令</p>
+<p>sudo ./db2_install</p>
+<p>2.指定安装路径，一般不更改路径，中文环境键入“是”加回车。</p>
+<p>4.一路安装，末了提示一个警告，说有小错误，不去管它，算是安装完。</p>
+<p>&nbsp;</p>
+<p>三.安装后步骤</p>
+<p>1.创建用户和用户组</p>
+<p>1)创建用户组：</p>
+<p>sudo groupadd -g 999 db2iadm1<br>sudo groupadd -g 998 db2fadm1<br>sudo groupadd -g 997 dasadm1<br>2)创建用户：<br>sudo useradd -u 1004 -g db2iadm1 -m -d /home/db2inst1 db2inst1<br>sudo useradd -u 1003 -g db2fadm1 -m -d /home/db2fenc1 db2fenc1<br>sudo useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1<br>3)设置用户的密码<br>sudo passwd db2inst1<br>sudo passwd db2fenc1<br>sudo passwd dasusr1</p>
+<p>&nbsp;</p>
+<p>2.创建DB2管理服务<br>sudo /opt/ibm/db2/V9.7/instance/dascrt -u dasusr1</p>
+<p>3.创建DB2实例<br>sudo /opt/ibm/db2/V9.7/instance/db2icrt -a server -u db2fenc1 db2inst1</p>
+<p>4.设置DB2使用的端口<br>su - db2inst1<br>/bin/bash<br>chsh -s /bin/bash db2inst1（DB2需要bash，这个命令修改默认的sh）</p>
+<p>/home/db2inst1/sqllib/db2profile</p>
+<p>db2 update dbm cfg using svcename 50000</p>
+<p>&nbsp;</p>
+<p>5.设置DB2通讯协议<br>db2set DB2COMM=tcpip<br>6.启动DB2<br>db2start</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2013/06/11/e4-b8-babitbucket-org-e8-ae-be-e7-bd-aessh-e4-bb-a3-e7-90-86/" data-toggle="tooltip" data-placement="top" title="为bitbucket.org设置ssh代理">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2012/12/12/e5-ae-89-e8-a3-85-e7-ac-a6-e5-90-88ibm-e5-ae-89-e5-85-a8-e8-a7-84-e8-8c-83-e7-9a-84ubuntu-12-04/" data-toggle="tooltip" data-placement="top" title="安装符合IBM安全规范的Ubuntu 12.04">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
+                        
+                          <a class="tag" href="/tags/#DB2" title="DB2">DB2</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/josephan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/joseph-bing-han">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Joseph Han 2019 
+                    <br>
+                    Theme by <a href="http://beantech.org">BeanTech</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://www.huweihuang.com">胡伟煌</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huweihuang&repo=hexo-theme-huweihuang&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://joseph-bing-han.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://joseph-bing-han.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

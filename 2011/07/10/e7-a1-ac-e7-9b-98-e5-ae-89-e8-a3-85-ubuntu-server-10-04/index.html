@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          硬盘安装 Ubuntu Server 10.04 - Joseph Han | Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://joseph-bing-han.github.io/2011/07/10/e7-a1-ac-e7-9b-98-e5-ae-89-e8-a3-85-ubuntu-server-10-04/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
+                            
+                        </div>
+                        <h1>硬盘安装 Ubuntu Server 10.04</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Joseph Han on
+                            2011-07-10
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog of Joseph Han</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><span style="color: #ff0000;">转载请注明来源:</span><a href="../" title="Blog of Joseph Han">Blog of Joseph Han</a></p>
+<p>工作用的台机的Ubuntu Desktop从9.10升级到10.04后出了各种各样的问题，为了彻底解决，决定重新安装。这次直接装Server版，然后手工装ubuntu-desktop。安装过程如下：<br><em>*<br>备份个人数据**<br>将/home下数据打包<br>**<br>开始安装<br><strong>切换到WindowsXP</strong><br>**到<br><a href="http://archive.ubuntu.com/ubuntu/dists/lucid/main/installer-i386/current/images/hd-media/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/dists/lucid/main/installer-i386/current/images/hd-media/</a><br>下载下面3各文件<br>boot.img.gz<br>initrd.gz<br>vmlinuz<br>将这些文件和安装镜像</em>.iso拷贝到C盘<br>原有系统中已经安装了grub2,所以不需要grub4dos<br>重启系统进入grub界面,按”C”键进入命令行<br>输入以下：<br>set root=(hd0,1)<br>linux (hd0,1)/vmlinuz root=/dev/ram ramdisk_size=32000 devfs=mount,dall<br>initrd (hd0,1)/initrd.gz<br>boot</p>
+<p>重启系统，进入安装界面，一步一步选择配置安装,<br>选择 base server,lmap server ,mail server , ssh server<br>完成后重启</p>
+<p>设置root密码<br>passwd root</p>
+<p>远程ssh连接<br>打开/etc/apt/sources.list,增加国内的源<br>到<a href="http://wiki.ubuntu.org.cn/Qref/Source选合适的源列表" target="_blank" rel="noopener">http://wiki.ubuntu.org.cn/Qref/Source选合适的源列表</a></p>
+<p>我用的源列表</p>
+<p>##########################################################################################################</p>
+<p>#163源<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-backports main restricted universe multiverse</p>
+<p>#shou源<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-backports main restricted universe multiverse</p>
+<p>#欧洲官方源<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-backports main restricted universe multiverse</p>
+<p>#台湾官方源<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-security main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-backports main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-proposed main restricted universe multiverse</p>
+<p>##########################################################################################################</p>
+<p>sudo apt-get update</p>
+<p>安装桌面系统,以前一直用gnome,这次决定试用一下kde<br>sudo apt-get install kubuntu-desktop</p>
+<p>#也可以安装gonme，用$sudo apt-get install uuntu-desktop<br>我这平均每秒900k,大约12分钟下完,25分钟安装完成</p>
+<p>安装中文环境<br>sudo apt-get install language-pack-kde-zh-hans openoffice.org-l10n-zh-cn</p>
+<p>编译环境<br>sudo apt-get install build-essential autoconf automake</p>
+<p>重启,登录桌面<br>sudo reboot</p>
+<p>开启xdmcp,允许root登录<br>sudo kate /etc/kde4/kdm/kdmrc</p>
+<p>找到[Xdmcp]，编辑Enable=true。<br>AllowRootLogins=true</p>
+<p>sudo kate /etc/kde4/kdm/Xaccess<br>添加一行*</p>
+<p>另外要把当前用户加到audio组,否则没有声音</p>
+<p>去除sudo的密码输入<br>sudo kate /etc/sudoers<br>%admin ALL=(ALL)<br>改為<br>%admin ALL=(ALL) NOPASSWD: NOPASSWD: ALL</p>
+<p>#################################################################<br>全自动安装微软雅黑字体- Ubuntu</p>
+<p>支持在Ubuntu8.10、Ubuntu9.04系统上自动安装微软雅黑、monaco-linux、lucida-console等字体。ubuntu<br>而且可以设置LED、CRT两种不同的显示器的渲染效果，无需手工配置，实现自动化安装。<br>使用方法如下：<br>打开命令控制器，然后运行下面的脚本（可以通过粘贴复制实现）：</p>
+<p>wget -O get-fonts.sh.zip <a href="http://files.cnblogs.com/DengYangjun/get-fonts.sh.zip" target="_blank" rel="noopener">http://files.cnblogs.com/DengYangjun/get-fonts.sh.zip</a><br>unzip -o get-fonts.sh.zip 1&gt;/dev/null<br>chmod a+x get-fonts.sh<br>./get-fonts.sh</p>
+<p>删除下载的字体安装脚本文件：</p>
+<p>rm get-fonts.sh get-fonts.sh.zip 2&gt;/dev/null</p>
+<p>恢复以前的字体设置：</p>
+<p>cd /etc/fonts/conf.avail<br>sudo mv 51-local.conf.old 51-local.conf 2&gt;/dev/null<br>sudo mv 69-language-selector-zh-cn.conf.old 69-language-selector-zh-cn.conf 2&gt;/dev/null<br>sudo rm -f -r /usr/share/fonts/truetype/myfonts 2&gt;/dev/null<br>cd -</p>
+<p>##########################################################</p>
+<p>安装新立德，如果安的是gonme就不用了<br>sudo apt-get install synaptic</p>
+<p>安装雷鸟,pidgin,skype,linuxQQ,alltray<br>到<a href="http://ubuntu-tweak.com/安装ubuntu-tweak" target="_blank" rel="noopener">http://ubuntu-tweak.com/安装ubuntu-tweak</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2011/07/10/e7-a5-9e-e5-b7-9et1600-e7-ac-94-e8-ae-b0-e6-9c-ac-e5-ae-89-e8-a3-85ubuntu10-04desktop/" data-toggle="tooltip" data-placement="top" title="神州T1600笔记本 安装Ubuntu10.04Desktop">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2011/07/10/ubuntu-10-04-e4-bf-a1-e5-b0-81-e5-9b-be-e6-a0-87-e5-8e-bb-e9-99-a4/" data-toggle="tooltip" data-placement="top" title="Ubuntu 10.04 信封图标去除">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Linux" title="Linux">Linux</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/josephan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/joseph-bing-han">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Joseph Han 2019 
+                    <br>
+                    Theme by <a href="http://beantech.org">BeanTech</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://www.huweihuang.com">胡伟煌</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huweihuang&repo=hexo-theme-huweihuang&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://joseph-bing-han.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://joseph-bing-han.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
