@@ -210,123 +210,160 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>title: 持续集成系统搭建(一) Jenkins + Redmine + CAS + github OAuth2 实现 SSO<br>tag:</p>
+                <p>title: 持续集成系统搭建(一) Jenkins + Redmine + CAS + github OAuth2 实现 SSO<br>
+tag:</p>
 <ul>
 <li>CI</li>
 <li>SSO</li>
 <li>OAuth2</li>
 <li>Jenkins</li>
 <li>Redmine</li>
-<li>Linux<br>date: 2016-11-08 18:14:08<br>tags:</li>
+<li>Linux<br>
+date: 2016-11-08 18:14:08<br>
+tags:</li>
 </ul>
 <hr>
-<h2 id="安装Jetty服务器"><a href="#安装Jetty服务器" class="headerlink" title="安装Jetty服务器"></a>安装Jetty服务器</h2><blockquote>
-<p>$ wget <a href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.13.v20161014/jetty-distribution-9.3.13.v20161014.tar.gz" target="_blank" rel="noopener">http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.13.v20161014/jetty-distribution-9.3.13.v20161014.tar.gz</a>  </p>
-</blockquote>
-<p>解压到 /opt/eclipse/jetty    </p>
+<h2>安装Jetty服务器</h2>
 <blockquote>
-<p>$ ln -s /opt/eclipse/jetty/bin/jetty.sh /etc/init.d/jetty  </p>
+<p>$ wget <a href="http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.13.v20161014/jetty-distribution-9.3.13.v20161014.tar.gz" target="_blank" rel="noopener">http://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.3.13.v20161014/jetty-distribution-9.3.13.v20161014.tar.gz</a></p>
 </blockquote>
-<p>新建 /etc/default/jetty<br>加入  </p>
+<p>解压到 /opt/eclipse/jetty</p>
 <blockquote>
-<p>JAVA_HOME=/usr/bin/java<br>JETTY_HOME=/opt/eclipse/jetty  </p>
+<p>$ ln -s /opt/eclipse/jetty/bin/jetty.sh /etc/init.d/jetty</p>
 </blockquote>
-<p>修改 /opt/eclipse/jetty/start.ini 中的配置  </p>
+<p>新建 /etc/default/jetty<br>
+加入</p>
 <blockquote>
-<p>jetty.http.host=127.0.0.1  //修改绑定ip为本地<br>jetty.http.port=8088 //修改端口 </p>
+<p>JAVA_HOME=/usr/bin/java<br>
+JETTY_HOME=/opt/eclipse/jetty</p>
+</blockquote>
+<p>修改 /opt/eclipse/jetty/start.ini 中的配置</p>
+<blockquote>
+<p>jetty.http.host=127.0.0.1  //修改绑定ip为本地<br>
+jetty.http.port=8088 //修改端口</p>
 </blockquote>
 <p>将jetty加入系统启动服务</p>
 <blockquote>
 <p>$ update-rc.d jetty defaults</p>
 </blockquote>
-<h2 id="配置nginx服务器，实现代理"><a href="#配置nginx服务器，实现代理" class="headerlink" title="配置nginx服务器，实现代理"></a>配置nginx服务器，实现代理</h2><p>在 /etc/nginx/site-enable 中增加一个配置 ci<br>内容如下</p>
+<h2>配置nginx服务器，实现代理</h2>
+<p>在 /etc/nginx/site-enable 中增加一个配置 ci<br>
+内容如下</p>
 <blockquote>
-<p>server {  </p>
-<pre><code>listen 80;  
-listen [::]:80;  
-server_name ci.joseph-han.net;  
-location /jenkins/ {  
-    proxy_pass      http://127.0.0.1:8088/jenkins/;  
-    proxy_redirect  off;  
-    proxy_set_header        Host            $host;  
-    proxy_set_header        X-Real-IP       $remote_addr;  
-    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;  
-}  </code></pre><p>}  </p>
+<p>server {</p>
+<pre><code>  listen 80;  
+  listen [::]:80;  
+  server_name ci.joseph-han.net;  
+  location /jenkins/ {  
+      proxy_pass      http://127.0.0.1:8088/jenkins/;  
+      proxy_redirect  off;  
+      proxy_set_header        Host            $host;  
+      proxy_set_header        X-Real-IP       $remote_addr;  
+      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;  
+  }  
+</code></pre>
+<p>}</p>
 </blockquote>
 <p>以管理员身份登陆Jenkins,设置当前服务器为Master,设置从节点数量为5个</p>
-<p>VPS内核太低，不支持docker,等带自己的服务器环境搭建完成再上Jenkins集群 :( </p>
-<h2 id="配置docker-实现swarm集群"><a href="#配置docker-实现swarm集群" class="headerlink" title="配置docker,实现swarm集群"></a>配置docker,实现swarm集群</h2><h3 id="配置swarm-master节点"><a href="#配置swarm-master节点" class="headerlink" title="配置swarm master节点"></a>配置swarm master节点</h3><h3 id="配置swarm-salve节点"><a href="#配置swarm-salve节点" class="headerlink" title="配置swarm salve节点"></a>配置swarm salve节点</h3><p>##安装Redmine  </p>
+<p>VPS内核太低，不支持docker,等带自己的服务器环境搭建完成再上Jenkins集群 :(</p>
+<h2>配置docker,实现swarm集群</h2>
+<h3>配置swarm master节点</h3>
+<h3>配置swarm salve节点</h3>
+<p>##安装Redmine</p>
 <ol>
-<li>在mysql创建redmine数据库  </li>
-<li>为Nginx安装Phusion Passenger  <a href="https://www.phusionpassenger.com/library/install/nginx/install/oss/xenial/" target="_blank" rel="noopener">Passenger 官网安装指导</a><blockquote>
-<p>sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv-keys 561F9B9CAC40B2F7<br>sudo apt-get install -y apt-transport-https ca-certificates<br>sudo sh -c ‘echo deb <a href="https://oss-binaries.phusionpassenger.com/apt/passenger" target="_blank" rel="noopener">https://oss-binaries.phusionpassenger.com/apt/passenger</a> xenial main &gt; /etc/apt/sources.list.d/passenger.list’<br>sudo apt-get update<br>sudo apt-get install -y nginx-extras passenger  </p>
-</blockquote>
-</li>
+<li>在mysql创建redmine数据库</li>
+<li>为Nginx安装Phusion Passenger  <a href="https://www.phusionpassenger.com/library/install/nginx/install/oss/xenial/" target="_blank" rel="noopener">Passenger 官网安装指导</a></li>
 </ol>
-<p>修改/etc/nginx/nginx.conf  </p>
 <blockquote>
-<p>include /etc/nginx/passenger.conf;<br>sudo service nginx restart  </p>
+<p>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7<br>
+sudo apt-get install -y apt-transport-https ca-certificates<br>
+sudo sh -c 'echo deb <a href="https://oss-binaries.phusionpassenger.com/apt/passenger" target="_blank" rel="noopener">https://oss-binaries.phusionpassenger.com/apt/passenger</a> xenial main &gt; /etc/apt/sources.list.d/passenger.list’<br>
+sudo apt-get update<br>
+sudo apt-get install -y nginx-extras passenger</p>
 </blockquote>
-<p>验证  </p>
+<p>修改/etc/nginx/nginx.conf</p>
 <blockquote>
-<p>sudo /usr/bin/passenger-config validate-install<br>sudo /usr/sbin/passenger-memory-stats </p>
+<p>include /etc/nginx/passenger.conf;<br>
+sudo service nginx restart</p>
+</blockquote>
+<p>验证</p>
+<blockquote>
+<p>sudo /usr/bin/passenger-config validate-install<br>
+sudo /usr/sbin/passenger-memory-stats</p>
 </blockquote>
 <ol start="3">
 <li>配置 nginx</li>
 </ol>
 <blockquote>
-<p>vim /etc/nginx/sites-enable/ci  </p>
-<pre><code> location ~ ^/redmine(/.*|$) {  
-    alias /opt/CI/redmine/public$1;  # &lt;-- be sure to point to &apos;public&apos;!  
-    passenger_base_uri /redmine;  
-    passenger_app_root /opt/CI/redmine;  
-    passenger_document_root /opt/CI/redmine/public;  
-    passenger_enabled on;  
-}  </code></pre></blockquote>
+<p>vim /etc/nginx/sites-enable/ci</p>
+<pre><code>    location ~ ^/redmine(/.*|$) {  
+       alias /opt/CI/redmine/public$1;  # &lt;-- be sure to point to 'public'!  
+       passenger_base_uri /redmine;  
+       passenger_app_root /opt/CI/redmine;  
+       passenger_document_root /opt/CI/redmine/public;  
+       passenger_enabled on;  
+   }  
+</code></pre>
+</blockquote>
 <ol start="4">
-<li><p>下载redmine</p>
-<blockquote>
-<p>cd /opt/CI<br>wget <a href="http://www.redmine.org/releases/redmine-3.3.1.tar.gz" target="_blank" rel="noopener">http://www.redmine.org/releases/redmine-3.3.1.tar.gz</a><br>tar vxf redmine-3.3.1.tar.gz<br>ln -s /opt/CI/redmine-3.3.1 ./redmine<br>chown -R www-data.www-data /opt/CI</p>
-</blockquote>
-</li>
-<li><p>配置redmine  </p>
-<blockquote>
-<p>cd /opt/CI/redmine/config<br>cp configuration.yml.example configuration.yml<br>cp database.yml.example database.yml  </p>
-</blockquote>
-</li>
+<li>下载redmine</li>
 </ol>
+<blockquote>
+<p>cd /opt/CI<br>
+wget <a href="http://www.redmine.org/releases/redmine-3.3.1.tar.gz" target="_blank" rel="noopener">http://www.redmine.org/releases/redmine-3.3.1.tar.gz</a><br>
+tar vxf redmine-3.3.1.tar.gz<br>
+ln -s /opt/CI/redmine-3.3.1 ./redmine<br>
+chown -R www-data.www-data /opt/CI</p>
+</blockquote>
+<ol start="5">
+<li>配置redmine</li>
+</ol>
+<blockquote>
+<p>cd /opt/CI/redmine/config<br>
+cp configuration.yml.example configuration.yml<br>
+cp database.yml.example database.yml</p>
+</blockquote>
 <p>配置db</p>
 <ol start="5">
-<li><p>安装ruby依赖</p>
-<blockquote>
-<p>gem install bundler<br>apt install libroot-bindings-ruby-dev<br>apt install libmysqlclient-dev<br>apt install libmagickwand-dev<br>bundle install –without development test</p>
-</blockquote>
-</li>
-<li><p>生成tocken和数据表：  </p>
-<blockquote>
-<p>bundle exec rake generate_secret_token<br>RAILS_ENV=production bundle exec rake db:migrate<br>RAILS_ENV=production bundle exec rake redmine:load_default_data  </p>
-</blockquote>
-</li>
+<li>安装ruby依赖</li>
 </ol>
-<h2 id="安装CAS"><a href="#安装CAS" class="headerlink" title="安装CAS"></a>安装CAS</h2><ol>
-<li>下载cas并编译<a href="https://github.com/apereo/cas-gradle-overlay-template" target="_blank" rel="noopener">cas-gradle-overlay-template</a>，<br>注意为了使用github代理登陆一定要添加依赖 Reference: <a href="https://apereo.github.io/cas/5.0.x/integration/Delegate-Authentication.html" target="_blank" rel="noopener">Delegate Authentication</a><blockquote>
+<blockquote>
+<p>gem install bundler<br>
+apt install libroot-bindings-ruby-dev<br>
+apt install libmysqlclient-dev<br>
+apt install libmagickwand-dev<br>
+bundle install --without development test</p>
+</blockquote>
+<ol start="6">
+<li>生成tocken和数据表：</li>
+</ol>
+<blockquote>
+<p>bundle exec rake generate_secret_token<br>
+RAILS_ENV=production bundle exec rake db:migrate<br>
+RAILS_ENV=production bundle exec rake redmine:load_default_data</p>
+</blockquote>
+<h2>安装CAS</h2>
+<ol>
+<li>下载cas并编译<a href="https://github.com/apereo/cas-gradle-overlay-template" target="_blank" rel="noopener">cas-gradle-overlay-template</a>，<br>
+注意为了使用github代理登陆一定要添加依赖 Reference: <a href="https://apereo.github.io/cas/5.0.x/integration/Delegate-Authentication.html" target="_blank" rel="noopener">Delegate Authentication</a></li>
+</ol>
+<blockquote>
 <p>vim ~/cas-gradle-overlay-template/cas/build.gradle</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile <span class="string">"org.apereo.cas:cas-server-webapp:$&#123;project.'cas.version'&#125;@war"</span></span><br><span class="line">    compile <span class="string">"org.apereo.cas:cas-server-support-pac4j-webflow:$&#123;project.'cas.version'&#125;"</span> <span class="comment">//新增 for 5.0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;    </span><br><span class="line">    compile <span class="string">"org.jasig.cas:cas-server-webapp:$&#123;project.'cas.version'&#125;@war"</span></span><br><span class="line">    compile <span class="string">"org.jasig.cas:cas-server-support-pac4j-webflow:$&#123;project.'cas.version'&#125;"</span> <span class="comment">//新增 for 4.2:</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
 <blockquote>
-<p>cd ~/cas-gradle-overlay-template;./gradlew clean build  </p>
+<p>cd ~/cas-gradle-overlay-template;./gradlew clean build</p>
 </blockquote>
-<p>//到<del>/cas-gradle-overlay-template/cas/build/libs下把cas.war拷贝到/opt/CI/<br>将</del>/cas-gradle-overlay-template/etc/cas/ 下的配置文件解压到/etc/cas下  </p>
+<p>//到~/cas-gradle-overlay-template/cas/build/libs下把cas.war拷贝到/opt/CI/<br>
+将~/cas-gradle-overlay-template/etc/cas/ 下的配置文件解压到/etc/cas下</p>
 <ol start="2">
-<li>配置nginx服务器,实现ssl代理<br>生成服务器ssl证书<br><font color="red">注意：名字一定要是服务器域名</font>  </li>
+<li>配置nginx服务器,实现ssl代理<br>
+生成服务器ssl证书<br>
+<font color="red">注意：名字一定要是服务器域名</font></li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">证书文件生成:</span><br><span class="line"></span><br><span class="line">一. 服务器端</span><br><span class="line"></span><br><span class="line">1. 生成服务器端 私钥(key文件)：</span><br><span class="line">openssl genrsa -des3 -out server.key 1024</span><br><span class="line">运行时会提示输入密码，此密码用于加密key文件(参数des3是加密算法，也可以选用其他安全的算法)，以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令，如果不要口令，则去除口令：</span><br><span class="line">mv server.key server.origin.key</span><br><span class="line">openssl rsa -in server.origin.key -out server.key</span><br><span class="line">2. 生成服务器端证书签名请求文件(csr文件)：</span><br><span class="line">openssl req -new -key server.key -out server.csr</span><br><span class="line">生成Certificate Signing Request（CSR），生成的csr文件交给CA签名后形成服务端自己的证书。屏幕上将有提示，依照其 提示一步一步输入要求的个人信息即可(如：Country,province,city,company等)。</span><br><span class="line"></span><br><span class="line">二. 客户端</span><br><span class="line"></span><br><span class="line">1. 生成客户端私钥(key文件)：</span><br><span class="line">openssl genrsa -des3 -out client.key 1024</span><br><span class="line">2. 生成客户端证书签名请求文件(csr文件)：</span><br><span class="line">openssl req -new -key client.key -out client.csr</span><br><span class="line"></span><br><span class="line">三. 生成CA证书文件</span><br><span class="line"></span><br><span class="line">#server.csr 与 client.csr文件必须有CA的签名才可形成证书。</span><br><span class="line">cd  /tmp/create_key/ca</span><br><span class="line">1. 首先生成CA的key文件：</span><br><span class="line">openssl genrsa -des3 -out ca.key 1024</span><br><span class="line">2. 生成CA自签名证书：</span><br><span class="line">openssl req -new -x509 -key ca.key -out ca.crt -days 3650</span><br><span class="line">可以加证书过期时间选项 &quot;-days 3650&quot;.</span><br><span class="line"></span><br><span class="line">四. 利用CA证书进行签名</span><br><span class="line"></span><br><span class="line">openssl ca -in ../server.csr -out ../server.crt -cert ca.crt -keyfile ca.key </span><br><span class="line">openssl ca -in ../client.csr -out ../client.crt -cert ca.crt -keyfile ca.key</span><br><span class="line">这两条执行的时候因为没有指定openssl.cnf 会报错，不过没关系，我们用默认的 /etc/pki/tls/openssl.cnf 就可以。</span><br><span class="line">不过用默认的时候需要先执行下面两行：</span><br><span class="line">touch /etc/pki/CA/index.txt </span><br><span class="line">echo 00 &gt; /etc/pki/CA/serial</span><br></pre></td></tr></table></figure>
-
-<p>//3. 配置CAS  Reference: <a href="https://apereo.github.io/cas/5.0.x/installation/Configuration-Properties.html" target="_blank" rel="noopener">CAS Properties</a> </p>
-<p>// &gt;vim /opt/CI/cas/WEB-INF/classes/application.properties  </p>
+<p>//3. 配置CAS  Reference: <a href="https://apereo.github.io/cas/5.0.x/installation/Configuration-Properties.html" target="_blank" rel="noopener">CAS Properties</a></p>
+<p>// &gt;vim /opt/CI/cas/WEB-INF/classes/application.properties</p>
 <ol start="3">
 <li>配置cas增加github代理认证</li>
 </ol>
@@ -334,23 +371,26 @@ location /jenkins/ {
 <p>vim /opt/CI/cas/WEB-INF/spring-configuration/applicationContext.xml</p>
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"github"</span> <span class="attr">class</span>=<span class="string">"org.pac4j.oauth.client.GitHubClient"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"key"</span> <span class="attr">value</span>=<span class="string">"15a52a6de46737xxxxx"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"secret"</span> <span class="attr">value</span>=<span class="string">"f938abe21612a652ec41c767383fe3848xxxxxx"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"callbackUrl"</span> <span class="attr">value</span>=<span class="string">"https://sso.joseph-han.net/cas/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>修改service id,使http的客户端也可以访问https的服务器</p>
 <blockquote>
 <p>vim /opt/CI/cas/WEB-INF/classes/services/Apereo-10000002.json</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"serviceId"</span> : <span class="string">"^http.*"</span>,  <span class="comment">//原来是https://</span></span><br></pre></td></tr></table></figure>
-
 <p>事先生成下面要用的密钥 Reference: <a href="https://github.com/mitreid-connect/json-web-key-generator" target="_blank" rel="noopener">secret key tool</a></p>
 <blockquote>
 <p>vim /opt/CI/cas/WEB-INF/cas.properties</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The encryption secret key. By default, must be a octet string of size 256.</span></span><br><span class="line">tgc.encryption.key=FPWBWR2r7GKldTr5WTeQPFEJHV7Xq0Uel0VLsIeMZPE</span><br><span class="line"><span class="comment"># The signing secret key. By default, must be a octet string of size 512.</span></span><br><span class="line">tgc.signing.key=MijU8ew5hYkGjHVQWMRReLilGTUUqlHex-P84ceWajaYjvuASNgvYaLUWYCnCA0fWj_vXifyfImnHawdouBXYg</span><br><span class="line"><span class="comment"># Decides whether SSO cookie should be created only under secure connections.</span></span><br><span class="line">tgc.secure=<span class="literal">true</span></span><br><span class="line"><span class="comment"># The expiration value of the SSO cookie</span></span><br><span class="line">tgc.maxAge=-1</span><br><span class="line"><span class="comment"># The name of the SSO cookie</span></span><br><span class="line">tgc.name=CAS_TGC</span><br><span class="line"><span class="comment"># The path to which the SSO cookie will be scoped</span></span><br><span class="line">tgc.path=/cas</span><br><span class="line"><span class="comment"># The expiration value of the SSO cookie for long-term authentications</span></span><br><span class="line">tgc.remember.me.maxAge=1209600</span><br><span class="line"><span class="comment"># Decides whether SSO Warning cookie should be created only under secure connections.</span></span><br><span class="line">warn.cookie.secure=<span class="literal">true</span></span><br><span class="line"><span class="comment"># The expiration value of the SSO Warning cookie</span></span><br><span class="line">warn.cookie.maxAge=-1</span><br><span class="line"><span class="comment"># The name of the SSO Warning cookie</span></span><br><span class="line">warn.cookie.name=CASPRIVACY</span><br><span class="line"><span class="comment"># The path to which the SSO Warning cookie will be scoped</span></span><br><span class="line">warn.cookie.path=/cas</span><br><span class="line"><span class="comment"># Whether we should track the most recent session by keeping the latest service ticket</span></span><br><span class="line">tgt.onlyTrackMostRecentSession = <span class="literal">true</span></span><br><span class="line"><span class="comment"># Indicates whether an SSO session should be created for renewed authentication requests.</span></span><br><span class="line">create.sso.renewed.authn=<span class="literal">true</span></span><br><span class="line"><span class="comment"># Indicates whether an SSO session can be created if no service is present.</span></span><br><span class="line">create.sso.missing.service=<span class="literal">true</span></span><br><span class="line"><span class="comment"># Authentication delegation using pac4j</span></span><br><span class="line"><span class="comment">#一定要设置fals否则返回的id带有GithubProf#会影响jenkins生成的url</span></span><br><span class="line">cas.pac4j.client.authn.typedidused=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Redmine-关联-CAS"><a href="#Redmine-关联-CAS" class="headerlink" title="Redmine 关联 CAS"></a>Redmine 关联 CAS</h2><blockquote>
-<p>cd /opt/CI/redmine/plugins/<br>git clone <a href="https://github.com/joseph-bing-han/redmine_omniauth_cas.git" target="_blank" rel="noopener">https://github.com/joseph-bing-han/redmine_omniauth_cas.git</a><br>我fork了插件代码，增加了自动创建用户到db的逻辑<br>登陆管理页面配置正确cas域名即可</p>
+<h2>Redmine 关联 CAS</h2>
+<blockquote>
+<p>cd /opt/CI/redmine/plugins/<br>
+git clone <a href="https://github.com/joseph-bing-han/redmine_omniauth_cas.git" target="_blank" rel="noopener">https://github.com/joseph-bing-han/redmine_omniauth_cas.git</a><br>
+我fork了插件代码，增加了自动创建用户到db的逻辑<br>
+登陆管理页面配置正确cas域名即可</p>
 </blockquote>
-<h2 id="Jenkins-关联-CAS"><a href="#Jenkins-关联-CAS" class="headerlink" title="Jenkins 关联 CAS"></a>Jenkins 关联 CAS</h2><p>登陆系统，在插件管理页面安装CAS plugins <a href="http://ci.joseph-han.net/jenkins/pluginManager/available" target="_blank" rel="noopener">http://ci.joseph-han.net/jenkins/pluginManager/available</a><br>配置好cas域名，重启服务即可</p>
+<h2>Jenkins 关联 CAS</h2>
+<p>登陆系统，在插件管理页面安装CAS plugins <a href="http://ci.joseph-han.net/jenkins/pluginManager/available" target="_blank" rel="noopener">http://ci.joseph-han.net/jenkins/pluginManager/available</a><br>
+配置好cas域名，重启服务即可</p>
 
                 
 

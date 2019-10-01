@@ -213,10 +213,15 @@
                 post-container">
 
                 <p>转载请注明来源:<a href="http://blog.joseph-han.net/" title="Blog of Joseph Han" target="_blank" rel="noopener">Blog of Joseph Han</a></p>
-<p>Ubuntu 14.04中的apache版本为2.4,权限配置配置于原来的2.2有区别,具体内容在<br><a href="http://httpd.apache.org/docs/2.4/upgrading.html" target="_blank" rel="noopener">http://httpd.apache.org/docs/2.4/upgrading.html</a></p>
-<p>apache 2.2下的<br>Order allow,deny<br>Allow from all</p>
-<p>要改为:<br>Require all granted</p>
-<p>否则会报错误:<br>apache client denied by server configuration: /xxx/xxx</p>
+<p>Ubuntu 14.04中的apache版本为2.4,权限配置配置于原来的2.2有区别,具体内容在<br>
+<a href="http://httpd.apache.org/docs/2.4/upgrading.html" target="_blank" rel="noopener">http://httpd.apache.org/docs/2.4/upgrading.html</a></p>
+<p>apache 2.2下的<br>
+Order allow,deny<br>
+Allow from all</p>
+<p>要改为:<br>
+Require all granted</p>
+<p>否则会报错误:<br>
+apache client denied by server configuration: /xxx/xxx</p>
 
                 
 

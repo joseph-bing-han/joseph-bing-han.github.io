@@ -213,20 +213,99 @@
                 post-container">
 
                 <p><span style="color: #ff0000;">转载请注明来源:</span><a href="../" title="Blog of Joseph Han">Blog of Joseph Han</a></p>
-<p>我的笔记本是神州T1600的，集成的SIS的显示芯片，在linux下兼容性不是很好，经常会出各种问题。最新版的ubuntu10.04已经出了，预计对这倒霉本子支持会好一点，安装过程如下：<br>1.在Windows7下进行wubi模式安装，修改<strong>Safe graphic mode</strong><span style="font-family: 宋体;">的参数，追加</span><span style="color: #ff0000; font-family: 宋体;"> vga=788 <span style="color: #000000;">重启后</span></span>选<strong>Safe graphic mode</strong>安装</p>
-<p>2.安装后登录系统，修改源<br>$sudo gedit /etc/apt/sources.list<br><span style="color: #274e13;">##############################</span></p>
-<p>#以下是我用的源<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-backports main restricted universe multiverse</p>
-<p>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-backports main restricted universe multiverse</p>
-<p>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-security main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-backports main restricted universe multiverse<br>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-proposed main restricted universe multiverse</p>
-<p>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br><span style="color: #274e13;">##############################</span><br>$sudo apt-get update</p>
-<p>3.显示相关设置<br>1)安装sis显卡驱动<br>$cd /tmp<br>$wget <a href="http://blogimg.chinaunix.net/blog/upfile2/100504152323.zip" target="_blank" rel="noopener">http://blogimg.chinaunix.net/blog/upfile2/100504152323.zip</a><br>$unzip xorg-driver-sis671-0.9.1-fixed-build.zip<br>$sudo cp sis671_drv.* /usr/lib/xorg/modules/drivers/</p>
-<p>2)处理启动时控制台的花屏<br>$echo blacklist vga16fb | sudo tee /etc/modprobe.d/blacklist-vga16fb.conf<br>$sudo update-initramfs -u</p>
-<p>3)修改/etc/X11/xorg.conf配置<br>$sudo gedit /etc/X11/xorg.conf<br><span style="color: #274e13;">###########################</span></p>
-<p>#文件内容<br>Section “Device”<br>Identifier   “Configured Video Device”<br>Driver      “sis671”<br><span style="color: #274e13;">#   BusID      “PCI:1:0:0” </span><br>Option      “EnableSiSCtrl”      “yes”<br><span style="color: #274e13;">#   Option          “XvDefaultAdaptor”   “Blitter” </span><br>EndSection</p>
-<p>Section “Monitor”<br>Identifier   “Configured Monitor”<br>Option      “DPMS”         “yes”<br>EndSection</p>
-<p>Section “Screen”<br>Identifier   “Default Screen”<br>Monitor      “Configured Monitor”<br>Device      “Configured Video Device”<br>DefaultDepth   16<br>EndSection<br><span style="color: #274e13;">###########################</span></p>
-<p>4.添加root帐号的登录及sudo的密码<br>$sudo passwd root<br>设置root密码<br>$sudo gedit /etc/gdm/gdm.schemas<br>72行，&lt;default&gt;<span style="color: #ff0000;">root</span>&lt;/default&gt;增加<span style="color: #ff0000;">root</span><br>78 行，&lt;default&gt;bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap&lt;/default&gt;<br>去除<span style="color: #ff0000;">root</span><br>$sudo gedit /etc/sudoers<br>最后一行，改为<br><span style="color: #ff0000;">%admin ALL=(ALL) NOPASSWD: NOPASSWD: ALL </span><br>这样每次sudo就不需要再输入密码了</p>
-<p>完成以上设置后系统基本就没有什么问题了。<br>Ubuntu10.04对硬件的支持很好，连神州T1600这样杯具的本本的硬件都能完全支持（除了更杯具的sis显卡芯片），Fn快捷建控制的声音、屏 幕亮度、触屏开关、无线网卡开关全部都好用，特别是无线网卡，Realtek RTL8187 Wireless 802.11g 54Mbps USB  2.0 Network Adapter的卡以前都得手工加驱动，这次直接都能用了。<br>虽然在Linux社区Ubuntu的名声一直都不好，但我仍然要感谢它及其开发维护人员。</p>
+<p>我的笔记本是神州T1600的，集成的SIS的显示芯片，在linux下兼容性不是很好，经常会出各种问题。最新版的ubuntu10.04已经出了，预计对这倒霉本子支持会好一点，安装过程如下：<br>
+1.在Windows7下进行wubi模式安装，修改<strong>Safe graphic mode</strong><span style="font-family: 宋体;">的参数，追加</span><span style="color: #ff0000; font-family: 宋体;"> vga=788 <span style="color: #000000;">重启后</span></span>选<strong>Safe graphic mode</strong>安装</p>
+<p>2.安装后登录系统，修改源<br>
+$sudo gedit /etc/apt/sources.list<br>
+<span style="color: #274e13;">##############################<br>
+#以下是我用的源</span><br>
+deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid main restricted universe multiverse<br>
+deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>
+deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>
+deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>
+deb <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.163.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu/</a> lucid-backports main restricted universe multiverse</p>
+<p>deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid main restricted universe multiverse<br>
+deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>
+deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>
+deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>
+deb <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>
+deb-src <a href="http://mirrors.sohu.com/ubuntu/" target="_blank" rel="noopener">http://mirrors.sohu.com/ubuntu/</a> lucid-backports main restricted universe multiverse</p>
+<p>deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid main restricted universe multiverse<br>
+deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-security main restricted universe multiverse<br>
+deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-updates main restricted universe multiverse<br>
+deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-backports main restricted universe multiverse<br>
+deb <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-proposed main restricted universe multiverse<br>
+deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid main restricted universe multiverse<br>
+deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-security main restricted universe multiverse<br>
+deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-updates main restricted universe multiverse<br>
+deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-backports main restricted universe multiverse<br>
+deb-src <a href="http://tw.archive.ubuntu.com/ubuntu" target="_blank" rel="noopener">http://tw.archive.ubuntu.com/ubuntu</a> lucid-proposed main restricted universe multiverse</p>
+<p>deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid main restricted universe multiverse<br>
+deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>
+deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>
+deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>
+deb <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>
+deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid main restricted universe multiverse<br>
+deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-security main restricted universe multiverse<br>
+deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-updates main restricted universe multiverse<br>
+deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-proposed main restricted universe multiverse<br>
+deb-src <a href="http://archive.ubuntu.com/ubuntu/" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/</a> lucid-backports main restricted universe multiverse<br>
+<span style="color: #274e13;">##############################</span><br>
+$sudo apt-get update</p>
+<p>3.显示相关设置<br>
+1)安装sis显卡驱动<br>
+$cd /tmp<br>
+$wget <a href="http://blogimg.chinaunix.net/blog/upfile2/100504152323.zip" target="_blank" rel="noopener">http://blogimg.chinaunix.net/blog/upfile2/100504152323.zip</a><br>
+$unzip xorg-driver-sis671-0.9.1-fixed-build.zip<br>
+$sudo cp sis671_drv.* /usr/lib/xorg/modules/drivers/</p>
+<p>2)处理启动时控制台的花屏<br>
+$echo blacklist vga16fb | sudo tee /etc/modprobe.d/blacklist-vga16fb.conf<br>
+$sudo update-initramfs -u</p>
+<p>3)修改/etc/X11/xorg.conf配置<br>
+$sudo gedit /etc/X11/xorg.conf<br>
+<span style="color: #274e13;">###########################<br>
+#文件内容</span><br>
+Section &quot;Device&quot;<br>
+Identifier   &quot;Configured Video Device&quot;<br>
+Driver      “sis671”<br>
+<span style="color: #274e13;">#   BusID      “PCI:1:0:0” </span><br>
+Option      “EnableSiSCtrl”      “yes”<br>
+<span style="color: #274e13;">#   Option          “XvDefaultAdaptor”   “Blitter” </span><br>
+EndSection</p>
+<p>Section &quot;Monitor&quot;<br>
+Identifier   &quot;Configured Monitor&quot;<br>
+Option      “DPMS”         &quot;yes&quot;<br>
+EndSection</p>
+<p>Section &quot;Screen&quot;<br>
+Identifier   &quot;Default Screen&quot;<br>
+Monitor      &quot;Configured Monitor&quot;<br>
+Device      &quot;Configured Video Device&quot;<br>
+DefaultDepth   16<br>
+EndSection<br>
+<span style="color: #274e13;">###########################</span></p>
+<p>4.添加root帐号的登录及sudo的密码<br>
+$sudo passwd root<br>
+设置root密码<br>
+$sudo gedit /etc/gdm/gdm.schemas<br>
+72行，&lt;default&gt;<span style="color: #ff0000;">root</span>&lt;/default&gt;增加<span style="color: #ff0000;">root</span><br>
+78 行，&lt;default&gt;bin,root,daemon,adm,lp,sync,shutdown,halt,mail,news,uucp,operator,nobody,nobody4,noaccess,postgres,pvm,rpm,nfsnobody,pcap&lt;/default&gt;<br>
+去除<span style="color: #ff0000;">root</span><br>
+$sudo gedit /etc/sudoers<br>
+最后一行，改为<br>
+<span style="color: #ff0000;">%admin ALL=(ALL) NOPASSWD: NOPASSWD: ALL </span><br>
+这样每次sudo就不需要再输入密码了</p>
+<p>完成以上设置后系统基本就没有什么问题了。<br>
+Ubuntu10.04对硬件的支持很好，连神州T1600这样杯具的本本的硬件都能完全支持（除了更杯具的sis显卡芯片），Fn快捷建控制的声音、屏 幕亮度、触屏开关、无线网卡开关全部都好用，特别是无线网卡，Realtek RTL8187 Wireless 802.11g 54Mbps USB  2.0 Network Adapter的卡以前都得手工加驱动，这次直接都能用了。<br>
+虽然在Linux社区Ubuntu的名声一直都不好，但我仍然要感谢它及其开发维护人员。</p>
 
                 
 

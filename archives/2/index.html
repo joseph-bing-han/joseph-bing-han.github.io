@@ -222,11 +222,11 @@
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
 最近https://bitbucket.org被墙，推送代码受到了影响。
-最初使用VPN来翻墙，但在公司内网时无法连接VPN，不得不想其他办法，最终采用了ssh代理的方法：
+最初使用VPN来翻墙，但在公司内网时无法连接VPN，不得不想其他办法，
+最终采用了ssh代理的方法：
 在~/.ssh/config (没有这个文件就创建一个)，增加以下内容：
 Host bitbucket.org
-  User bitbucket_user_name
-......
+  User bitbucket_user_name......
         </div>
     </a>
     
@@ -264,10 +264,11 @@ Host bitbucket.org
             参考文献：
 How-to: Ubuntu 7.10 Server x86 32-bit and DB2 Express-C v9.5
 DB2 v9.7 Infomation Center
-&nbsp;
+ 
 场景：在IBM System x3550服务器上，Ubuntu Server 8.0.4操作系统中以db2_install 命令安装DB2 v9.7 ESE trial数据库。
-&nbsp;
-......
+ 
+一.安装前的步骤
+1......
         </div>
     </a>
     
@@ -299,8 +300,11 @@ DB2 v9.7 Infomation Center
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-今天wubi安装的Ubuntu 10.04硬盘空间又不够了，host下也没有更大的空间用于调整了。决定直接分出一块硬盘来安装Ubuntu 12.04正常安装后需要安装IBM的Open Client先下载公钥：http://ocdc.hursley.ibm.com/ocdc/ocdc-archive-keyring.deb
-然后在源里添加:......
+今天wubi安装的Ubuntu 10.04硬盘空间又不够了，host下也没有更大的空间用于调整了。
+决定直接分出一块硬盘来安装Ubuntu 12.04
+正常安装后需要安装IBM的Open Client
+先下载公钥：http://ocdc.hursley.ibm.com/ocdc/ocdc-archive-keyring.deb
+然后在源里......
         </div>
     </a>
     
@@ -330,8 +334,10 @@ DB2 v9.7 Infomation Center
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-最进想实验Facebook的Hipop for php结果发现官方支持的是64位系统，在我的系统中无法安装。还有有高人改出了32位系统专用的版本，checkout出来后编译安装成功，特记录下安装过程，以防忘记。
-sudo apt-get install git-core cmake g++ libboost-dev flex  bison......
+最进想实验Facebook的Hipop for php
+结果发现官方支持的是64位系统，在我的系统中无法安装。
+还有有高人改出了32位系统专用的版本，checkout出来后编译安装成功，特记录下安装过程，以防忘记。
+sudo apt-get install git-core cmake g++ libboost-dev flex  bis......
         </div>
     </a>
     
@@ -365,8 +371,12 @@ sudo apt-get install git-core cmake g++ libboost-dev flex  bison......
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-1. sys_getloadavg();这个函数就是Linux的load average值.返回一个数组,分别是1,5,15分钟内服务器的负载情况.
-2.get_browser()获取客户端浏览器信息。有了这个函数，再也不用自己去分析$_SERVER[‘HTTP_USER_AGENT’] 这个字符串了。使用这个函数需要下载一个配置文件:b......
+1. sys_getloadavg();
+这个函数就是Linux的load average值.
+返回一个数组,分别是1,5,15分钟内服务器的负载情况.
+2.get_browser()
+获取客户端浏览器信息。有了这个函数，再也不用自己去分析$_SERVER[‘HTTP_USER_AGENT’] 这个字符串了。
+使用这个函数需要下载一个配置......
         </div>
     </a>
     
@@ -397,7 +407,8 @@ sudo apt-get install git-core cmake g++ libboost-dev flex  bison......
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
 最近调试SugarCRM时，总觉得SQL日志内容过于简单，无法查看该条SQL的调用栈，不利于分析SQL的层级关系。于是google了一下PHP输出调用栈的函数，找到结果如下：
-PHP5内置函数：debug_print_backtrace()和debug_backtrace()这两个函数实现相同的目的——记录php函数的调用堆栈——但是表现......
+PHP5内置函数：debug_print_backtrace()和debug_backtrace()
+这两个函数实现相同的目的——记录php函数的调用堆栈——但是表......
         </div>
     </a>
     
@@ -460,9 +471,10 @@ PHP5内置函数：debug_print_backtrace()和debug_backtrace()这两个函数实
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-现在使用的ThinkPad T60上的ubuntu中有两个JVM,一个是Oracle的1.7另一个是IBM自己的1.6，默认是IBM的但用默认的JVM运行netbeans时，界面不是仿GTK的而是JVM的，没有时间研究怎么设置JVM了，直接修改配置文件的默认JDK路径
+现在使用的ThinkPad T60上的ubuntu中有两个JVM,一个是Oracle的1.7另一个是IBM自己的1.6，默认是IBM的
+但用默认的JVM运行netbeans时，界面不是仿GTK的而是JVM的，没有时间研究怎么设置JVM了，直接修改配置文件的默认JDK路径
 我使用是netbeans7.1.1的zip版
-配置文件在解压路径下的e......
+配置文件在解压路径下的......
         </div>
     </a>
     
@@ -495,7 +507,8 @@ PHP5内置函数：debug_print_backtrace()和debug_backtrace()这两个函数实
 最近换了工作，现在在IBM。
 发的工作机比较老，是ThinkPad T60。默认装的windows，启动、使用都很慢，最近Notes又起不来了。
 决定自己给换成ubuntu desktop 10.04。因为windows系统还的保留，所有是wibu方式安装的。
-安装后要安装IBM专用的软件包http://ocdc.hursley.ibm.......
+安装后要安装IBM专用的软件包
+http://ocdc.hursley.ibm......
         </div>
     </a>
     
@@ -525,11 +538,10 @@ PHP5内置函数：debug_print_backtrace()和debug_backtrace()这两个函数实
         </h3>
         <div class="post-content-preview">
             
-
 转自http://my.oschina.net/shootercn/blog/38826
 Ubuntu已经转向Unity了，可是我怎么也习惯不了Unity，反倒是非常喜爱Gnome3。其实在Ubuntu上Unity和Gnome3完全可以共存，但是既然不用Unity，留着还需要更新，干脆删除算了。查了些资料，现在把删除方法总结如下：
 1.在删除前确保Unbutu没有设置自动登录
-2.安装G......
+2.安装Gn......
         </div>
     </a>
     

@@ -216,37 +216,49 @@
 
                 <p>转自<a href="http://blog.csdn.net/seven407/article/details/5292110" target="_blank" rel="noopener">seven407的专栏</a></p>
 <p>Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk实例并且可以通过TCP/IP流发送命令或读取事件。这在试图跟踪asterisk的状态或其中的电话客户端状态时很有用，<strong>AMI</strong>说明了客户端基于的一般(可能是动态的)规则。</p>
-<p>一种简单的”key: value”协议用于已连接的管理客户端和asteriskＰＢＸ之间的信息传递。每行都用回车换行（/r/n）来结束。</p>
-<p>&nbsp;</p>
+<p>一种简单的&quot;key: value&quot;协议用于已连接的管理客户端和asteriskＰＢＸ之间的信息传递。每行都用回车换行（/r/n）来结束。</p>
+<p> </p>
 <p><strong>协议特点：</strong></p>
 <p>在发送命令前，你必须建立一个连接。</p>
 <p>在认证后，数据包任何时间都可以在两个方向上互相传输。</p>
-<p>数据包第一行为”Action”时表明是由管理客户端发送到asterisk，第一行为”Event”或”Response”表明有asterisk发送到管理客户端。数据包内各行顺序可以变化，对数据包没有影响。</p>
+<p>数据包第一行为&quot;Action&quot;时表明是由管理客户端发送到asterisk，第一行为&quot;Event&quot;或&quot;Response&quot;表明有asterisk发送到管理客户端。数据包内各行顺序可以变化，对数据包没有影响。</p>
 <p>回车换行由于区分每一行，空行（两个连续回车换行）用于表明命令结束，Asterisk开始处理命令。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p><strong>数据包类型：</strong></p>
 <p>数据包的类型通过一下几种关键字来划分</p>
 <p>Action:一个由管理客户端发送到Asterisk的数据包，请求执行特定的动作。只有有限的几种动作供客户端使用，每个动作是由Asterisk服务器上的模块所决定的。一次只能执行一个动作，该动作数据包包含了动作名称以及执行所必需的参数。</p>
 <p>Response:Asterisk对管理客户端动作的响应。</p>
 <p>Event: 有关Asterisk核心或扩展模块发生事件的信息。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p><strong>建立管理连接和用户身份验证：</strong></p>
 <p>为了与Asterisk进行管理通话，管理客 户端必须建立到Asterisk服务器侦听端口（一般是5038）的TCP/IP连接，并使用登陆动作进行身份验证。这就要求在Asterisk服务器上 创建用户账户，用户账户在/etc/asterisk/manager.conf中配置。账户由允许登陆的主机，登录密码以及被授予的权限列表组成。</p>
-<p>登录和身份验证的经理，你必须发送一个” <em>登录</em> “行动，用您的用户名和秘密（密码作为参数）。 Here is an example:下面是一个例子：</p>
-<p>Action: login<br>Username: admin<br>Secret: secret</p>
-<p>&nbsp;</p>
-<p>你还可以通过”Events: off”阻止事件数据包发送到你的连接。例如：</p>
-<p>Action: login<br>Username: admin<br>Secret: secret<br>Events: off</p>
-<p>&nbsp;</p>
+<p>登录和身份验证的经理，你必须发送一个&quot; <em>登录</em> &quot;行动，用您的用户名和秘密（密码作为参数）。 Here is an example:下面是一个例子：</p>
+<p>Action: login<br>
+Username: admin<br>
+Secret: secret</p>
+<p> </p>
+<p>你还可以通过&quot;Events: off&quot;阻止事件数据包发送到你的连接。例如：</p>
+<p>Action: login<br>
+Username: admin<br>
+Secret: secret<br>
+Events: off</p>
+<p> </p>
 <p><strong>动作数据包：</strong></p>
 <p>向Asterisk发送动作时，额外的关键字可以提供进一步的动作信息。例如，你可能希望指定号码或通道的断开。此外，如果您的操作会导致Asterisk来执行拨号规则中的条目，你可以传递变量给拨号规则。这与你传递关键字的方式是一样的。</p>
 <p>向Asterisk发送动作数据包时，按照以下格式：</p>
-<p>Action: &lt;<em>action type</em>&gt;&lt;<em>CRLF</em>&gt;<br>&lt;<em>Key 1</em>&gt;: &lt;<em>Value 1</em>&gt;&lt;<em>CRLF</em>&gt;<br>&lt;<em>Key 2</em>&gt;: &lt;<em>Value 2</em>&gt;&lt;<em>CRLF</em>&gt;<br>…<br>Variable: &lt;<em>Variable 1</em>&gt;=&lt;<em>Value 1</em>&gt;&lt;<em>CRLF</em>&gt;<br>Variable: &lt;<em>Variable 2</em>&gt;=&lt;<em>Value 2</em>&gt;&lt;<em>CRLF</em>&gt;<br>…<br>&lt;<em>CRLF</em>&gt;</p>
-<p>&nbsp;</p>
+<p>Action: &lt;<em>action type</em>&gt;&lt;<em>CRLF</em>&gt;<br>
+&lt;<em>Key 1</em>&gt;: &lt;<em>Value 1</em>&gt;&lt;<em>CRLF</em>&gt;<br>
+&lt;<em>Key 2</em>&gt;: &lt;<em>Value 2</em>&gt;&lt;<em>CRLF</em>&gt;<br>
+…<br>
+Variable: &lt;<em>Variable 1</em>&gt;=&lt;<em>Value 1</em>&gt;&lt;<em>CRLF</em>&gt;<br>
+Variable: &lt;<em>Variable 2</em>&gt;=&lt;<em>Value 2</em>&gt;&lt;<em>CRLF</em>&gt;<br>
+…<br>
+&lt;<em>CRLF</em>&gt;</p>
+<p> </p>
 <p><strong>管理动作（</strong> <strong>Action</strong> <strong>）：</strong></p>
 <p>通过CLI命令show manager commands的输出结果就是管理动作列表。</p>
 <p>具体如下：</p>
-<p><strong>AbsoluteTimeout</strong> <strong>：</strong>这个命令将要求Asterisk在指定秒数后挂断特定的通道，从而有效地结束通话。</p>
+<p><strong>AbsoluteTimeout</strong> **：**这个命令将要求Asterisk在指定秒数后挂断特定的通道，从而有效地结束通话。</p>
 <p>参数：</p>
 <p>Channel :哪些渠道挂断，如SIP/123-1c20</p>
 <p>Timeout :到通道应挂断的秒数</p>
@@ -255,80 +267,96 @@
 <p>Action: AbsoluteTimeout</p>
 <p>Channel: SIP/123-1c20</p>
 <p>Timeout: 20</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回成功信息</p>
 <p>Response: Success</p>
 <p>Message: Timeout Set</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回失败信息</p>
 <p>Response: Error</p>
 <p>Message: No such channel</p>
-<p>&nbsp;</p>
-<p><strong>ChangeMonitor</strong> <strong>：</strong>更改记录某通道信息文件名。</p>
+<p> </p>
+<p><strong>ChangeMonitor</strong> **：**更改记录某通道信息文件名。</p>
 <p>参数：</p>
 <p>Channel：通道名称</p>
 <p>File：文件名</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送请求</p>
 <p>ACTION: ChangeMonitor</p>
 <p>Channel: SIP/x7065558529-1c20</p>
 <p>File: 20050103-140105_cc51</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回失败信息</p>
 <p>Response: Error</p>
 <p>Message: No such channel</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回成功信息</p>
 <p>Response: Success</p>
 <p>Message: Stopped monitoring channel</p>
-<p>&nbsp;</p>
-<p><strong>Command</strong> <strong>：</strong>发送Asterisk CLI命令。</p>
+<p> </p>
+<p><strong>Command</strong> **：**发送Asterisk CLI命令。</p>
 <p>参数：</p>
 <p>Command：Asterisk CLI 命令。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送请求</p>
 <p>ACTION: COMMAND</p>
 <p>command: Show Channels</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回信息</p>
 <p>Response: Follows</p>
 <p>Channel (Context Extension Pri ) State Appl. Data</p>
 <p>0 active channel(s)</p>
 <p>–END COMMAND-</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>注意：返回的事件响应结果并不是发送一个回车换行（/r/n）,而只发送回车（/n）,如果你在中断处理程序中只等待回车换行，那么这条信息将会被被抛弃。</p>
 <p>例如command返回信息如下：</p>
-<p>Response: Follows/r/n<br>Channel Location State Application(Data)/n<br>SIP/x7065551212b-1af (None) Ringing AppDial((Outgoing Line))/n<br>SIP/x7065551212c-2aa 29@default:2 Ring Dial(SIP/x7065551212b)/n<br>2 active channels/n<br>1 active call/r/n<br>–END COMMAND–/r/n<br>/r/n</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><strong>Events</strong> <strong>：</strong>事件控制流，用于启用/禁用发送给管理客户端的事件。</p>
+<p>Response: Follows/r/n<br>
+Channel Location State Application(Data)/n<br>
+SIP/x7065551212b-1af (None) Ringing AppDial((Outgoing Line))/n<br>
+SIP/x7065551212c-2aa 29@default:2 Ring Dial(SIP/x7065551212b)/n<br>
+2 active channels/n<br>
+1 active call/r/n<br>
+–END COMMAND–/r/n<br>
+/r/n</p>
+<p> </p>
+<p> </p>
+<p><strong>Events</strong> **：**事件控制流，用于启用/禁用发送给管理客户端的事件。</p>
 <p>参数：</p>
-<p>EventMask: ‘on’表示所有事件均会被发送到管理客户端。</p>
-<p>‘off’表示所有时间都不会被发送。</p>
-<p>‘system,call,log’用于选择被发送的事件。</p>
+<p>EventMask: 'on’表示所有事件均会被发送到管理客户端。</p>
+<p>'off’表示所有时间都不会被发送。</p>
+<p>'system,call,log’用于选择被发送的事件。</p>
 <p>提示：有些事件是启用或禁已经在.conf文件中配置了， They might be disabled by default.他们可能是默认为禁用。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>注意在此例子中EventMask事件没有立即返回的响应信息，只有在设备注销时才返回相关信息。</p>
 <p>发送请求：</p>
-<p>ACTION: EVENTS<br>EVENTMASK: ON<br>返回信息：<br>Event: PeerStatus<br>Peer: SIP/ChannelName<br>PeerStatus: Unregistered<br>Cause: Expired</p>
-<p>&nbsp;</p>
+<p>ACTION: EVENTS<br>
+EVENTMASK: ON<br>
+返回信息：<br>
+Event: PeerStatus<br>
+Peer: SIP/ChannelName<br>
+PeerStatus: Unregistered<br>
+Cause: Expired</p>
+<p> </p>
 <p>当EventMask参数为’off’时会立即返回响应信息，如下：</p>
 <p>发送：</p>
-<p>ACTION: EVENTS<br>EVENTMASK: OFF<br>返回：<br>Response: Events Off</p>
-<p>&nbsp;</p>
-<p><strong>ExtensionState</strong> <strong>：</strong>检查分机的状态。</p>
+<p>ACTION: EVENTS<br>
+EVENTMASK: OFF<br>
+返回：<br>
+Response: Events Off</p>
+<p> </p>
+<p><strong>ExtensionState</strong> **：**检查分机的状态。</p>
 <p>参数：Exten，Context，ActionID</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送：</p>
 <p>ACTION: ExtensionState</p>
 <p>Context: default</p>
 <p>Exten: 2001</p>
 <p>ActionID: 1</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>接收：</p>
 <p>Response: Success</p>
 <p>ActionID: 1</p>
@@ -337,7 +365,7 @@
 <p>Context: default</p>
 <p>Hint: SIP/2001</p>
 <p>Status: 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Status状态代码：</p>
 <p>-1 =扩展找不到</p>
 <p>0 =空闲</p>
@@ -346,11 +374,11 @@
 <p>4 =不可用</p>
 <p>8 =振铃</p>
 <p>16 =正等待</p>
-<p>&nbsp;</p>
+<p> </p>
 <p><strong>GetVar</strong>：获取一个通道变量。</p>
 <p>参数：Channel，Variable，actionID</p>
 <p>ActionID是一个可选的参数匹配信息。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送：</p>
 <p>ACTION: GetVar</p>
@@ -365,51 +393,51 @@
 <p>或</p>
 <p>Response: Success</p>
 <p>varname: (null)</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Hangup：挂断指定通道。</p>
 <p>参数：Channel</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>发送：</p>
 <p>ACTION: Hangup</p>
 <p>Channel: SIP/x7065558529-99a0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>接收：</p>
 <p>Event: Unlink</p>
 <p>Channel1: SIP/127.180.254.109-44df88e8</p>
 <p>Channel2: SIP/x7065558529-99a0</p>
 <p>Uniqueid1: 1124989110.20473</p>
 <p>Uniqueid2: 1124989110.20474</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Hangup</p>
 <p>Channel: SIP/x7065558529-99a0</p>
 <p>Uniqueid: 1124989110.20474</p>
 <p>Cause: 16</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Hangup</p>
 <p>Channel: SIP/127.180.254.109-44df88e8</p>
 <p>Uniqueid: 1124989110.20473</p>
 <p>Cause: 16</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Response: Success</p>
 <p>Message: Channel Hungup</p>
-<p>&nbsp;</p>
-<p><strong>IAXpeers</strong> <strong>：</strong>显示iax信息列表。</p>
+<p> </p>
+<p><strong>IAXpeers</strong> **：**显示iax信息列表。</p>
 <p>例子：</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>发送：</p>
 <p>Action: IAXPeers</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>接收：</p>
 <p>Name/Username Host Mask Port Status</p>
 <p>8002 (Unspecified) (D) 255.255.255.255 0 UNKNOWN</p>
 <p>8001 192.168.0.91 (D) 255.255.255.255 4569 OK (5 ms)</p>
 <p>2 iax2 peers [1 online, 1 offline, 0 unmonitored]</p>
-<p>&nbsp;</p>
-<p><strong>ListCommands</strong> <strong>：</strong>显示命令列表。</p>
+<p> </p>
+<p><strong>ListCommands</strong> **：**显示命令列表。</p>
 <p>参数：ActionID</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子:</p>
 <p>发送：</p>
 <p>Action：ListCommands</p>
@@ -463,16 +491,16 @@
 <p>ZapRestart: Fully Restart channels (terminates calls) (Priv: )</p>
 <p>ZapShowChannels: Show status channels (Priv: )</p>
 <p>ZapTransfer: Transfer Channel (Priv: )</p>
-<p>&nbsp;</p>
-<p><strong>Logoff</strong> <strong>：</strong>注销管理客户端。</p>
+<p> </p>
+<p><strong>Logoff</strong> **：**注销管理客户端。</p>
 <p>例子：</p>
 <p>发送：</p>
 <p>ACTION: LOGOFF</p>
 <p>接收：</p>
 <p>Response: Goodbye</p>
 <p>Message: Thanks for all the fish.</p>
-<p>&nbsp;</p>
-<p><strong>MailboxCount</strong> <strong>：</strong>检查语音信箱是否有新信息。</p>
+<p> </p>
+<p><strong>MailboxCount</strong> **：**检查语音信箱是否有新信息。</p>
 <p>参数：MailBox，actionID</p>
 <p>例子：</p>
 <p>发送：</p>
@@ -484,8 +512,8 @@
 <p>Mailbox: 2001@device</p>
 <p>NewMessages: 1</p>
 <p>OldMessages: 0</p>
-<p>&nbsp;</p>
-<p><strong>MailboxStatus:</strong>检查语音信箱状态。</p>
+<p> </p>
+<p>**MailboxStatus:**检查语音信箱状态。</p>
 <p>参数：MailBox，actionID</p>
 <p>例子：</p>
 <p>发送：</p>
@@ -496,7 +524,7 @@
 <p>Message: Mailbox Status</p>
 <p>Mailbox: 2001@device</p>
 <p>Waiting: 1</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Monitor：监听某个通道。</p>
 <p>参数：Channel, File, Format, Mix</p>
 <p>例子：</p>
@@ -505,21 +533,21 @@
 <p>Channel: SIP/x7062618529-643d</p>
 <p>File: channelsavefile</p>
 <p>Mix: 1</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回：</p>
 <p>Response: Success</p>
 <p>Message: Started monitoring channel</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>失败返回</p>
 <p>Response: Error</p>
 <p>Message: No such channel</p>
-<p>&nbsp;</p>
-<p><strong>Originate</strong> <strong>：</strong>产生一个呼叫。<strong>(privilege: call,all)</strong></p>
+<p> </p>
+<p><strong>Originate</strong> <strong>：<strong>产生一个呼叫。</strong>(privilege: call,all)</strong></p>
 <p>参数：</p>
 <p>Channel：呼叫连接产生的通道。</p>
 <p>Context：呼叫连接所使用的Context（Context，Exten，Priority必须同时使用）</p>
 <p>Exten： 呼叫连接所使用的分机（Context，Exten，Priority必须同时使用）</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Priority：呼叫连接的优先级。（Context，Exten，Priority必须同时使用）</p>
 <p>TimeOut：呼叫连接的超时（，单位为毫秒，默认为30000毫秒）</p>
 <p>CallID：呼叫连接的来电显示。</p>
@@ -528,18 +556,30 @@
 <p>Application：使用此次呼叫的应用程序。（使用参数和数据）</p>
 <p>Data：应用程序参数所使用的数据。</p>
 <p>Async：呼叫是否为异步。（允许多次调用不等待响应生成）</p>
-<p>ActionID<strong>：</strong>请 求标识符。 It allows you to identify the response to this  request.它允许您确定这一请求的响应信息。 You may use a number or a string. Useful when  you make several simultaneous requests.当您有用几个并发请求，您可以使用一个数字或字符串来区分。</p>
-<p>&nbsp;</p>
+<p>ActionID**：**请 求标识符。 It allows you to identify the response to this  request.它允许您确定这一请求的响应信息。 You may use a number or a string. Useful when  you make several simultaneous requests.当您有用几个并发请求，您可以使用一个数字或字符串来区分。</p>
+<p> </p>
 <p>事件的顺序:首先SGI通道鸣响，然后当他被接听后，通过上下文呼叫另一端的分机。注意超时只用于呼叫通道，呼叫分机时的超时另外指定。</p>
-<p>&nbsp;</p>
-<p>使用_异步_导致1 <strong>OriginateResponse</strong>事件，包含了失败的_原因_。 Reason may be one of the following:原因可能是下列之一：<br>0 = no such extension or number 0 =没有这样的延长或编号<br>1 = no answer 1 =无应答<br>4 = answered 4 =回答<br>8 = congested or not available 8 =拥挤或不可用</p>
-<p>&nbsp;</p>
+<p> </p>
+<p>使用_异步_导致1 <strong>OriginateResponse</strong>事件，包含了失败的_原因_。 Reason may be one of the following:原因可能是下列之一：<br>
+0 = no such extension or number 0 =没有这样的延长或编号<br>
+1 = no answer 1 =无应答<br>
+4 = answered 4 =回答<br>
+8 = congested or not available 8 =拥挤或不可用</p>
+<p> </p>
 <p>例1（从SIP通道呼叫一个分机，这将导致外部呼叫无法产生直到sip通道挂断）</p>
 <p>发送：</p>
-<p>Action: Originate<br>Channel: SIP/101test<br>Context: default<br>Exten: 8135551212<br>Priority: 1<br>Callerid: 3125551212<br>Timeout: 30000<br>Variable: var1=23|var2=24|var3=25<br>ActionID: ABC45678901234567890</p>
-<p>&nbsp;</p>
+<p>Action: Originate<br>
+Channel: SIP/101test<br>
+Context: default<br>
+Exten: 8135551212<br>
+Priority: 1<br>
+Callerid: 3125551212<br>
+Timeout: 30000<br>
+Variable: var1=23|var2=24|var3=25<br>
+ActionID: ABC45678901234567890</p>
+<p> </p>
 <p>分机8135551212是外呼号码。这个例子表明了变量的使用方法</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例2（从呼出通道呼叫一个本地分机，这将导致该分机不再响铃直到zap通道挂断）</p>
 <p>发送：</p>
 <p>Action: Originate</p>
@@ -549,22 +589,26 @@
 <p>Priority: 1</p>
 <p>Timeout: 30000</p>
 <p>Callerid: 3125551212</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>101为一个本地分机号。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例3（运行系统命令）</p>
 <p>发送：</p>
-<p>Action: Originate<br>Channel: Local/1@dummy<br>Application: system<br>Data: /path/to/script</p>
-<p>&nbsp;</p>
+<p>Action: Originate<br>
+Channel: Local/1@dummy<br>
+Application: system<br>
+Data: /path/to/script</p>
+<p> </p>
 <p>提示：如果你希望通道连接到任意分机和上下文，需要指定一个本地通道</p>
-<p>&nbsp;</p>
-<p><strong>ParkedCalls</strong> <strong>：</strong>设置显示保持的呼叫列表。</p>
+<p> </p>
+<p><strong>ParkedCalls</strong> **：**设置显示保持的呼叫列表。</p>
 <p>参数：ActionID</p>
 <p>发送：</p>
 <p>Action: PakedCalls</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回：</p>
-<p>Response: Success<br>Message: Parked calls will follow</p>
+<p>Response: Success<br>
+Message: Parked calls will follow</p>
 <p>Event: ParkedCallsComplete</p>
 <p><strong>Ping</strong></p>
 <p>例子：</p>
@@ -572,22 +616,26 @@
 <p>Action: ping</p>
 <p>返回：</p>
 <p>Response: Pong</p>
-<p>&nbsp;</p>
-<p><strong>QueueAdd</strong> <strong>：</strong>添加队列成员。</p>
+<p> </p>
+<p><strong>QueueAdd</strong> **：**添加队列成员。</p>
 <p>参数：</p>
 <p>Queue：添加成员的队列名。</p>
 <p>Interface: 成员名（例如sip/2001）</p>
 <p>Penalty：数值，值越高越靠后。</p>
 <p>Paused：暂停（true）或不暂停（false）</p>
 <p>ActionID：（前面已介绍）</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送：</p>
-<p>Action: QueueAdd<br>Queue: 200<br>Interface: sip/3001<br>Penalty: 1<br>Paused: true</p>
+<p>Action: QueueAdd<br>
+Queue: 200<br>
+Interface: sip/3001<br>
+Penalty: 1<br>
+Paused: true</p>
 <p>返回：</p>
 <p>Response: Success</p>
 <p>Message: Added interface to queue</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueMemberAdded</p>
 <p>Privilege: agent,all</p>
 <p>Queue: 200</p>
@@ -599,26 +647,28 @@
 <p>LastCall: 0</p>
 <p>Status: 5</p>
 <p>Paused: 1</p>
-<p>&nbsp;</p>
-<p><strong>QueueRemove</strong> <strong>：</strong>移除队列成员。</p>
+<p> </p>
+<p><strong>QueueRemove</strong> **：**移除队列成员。</p>
 <p>参数：</p>
 <p>Queue：移除成员的队列名。</p>
 <p>Interface: 成员名（例如sip/2001）</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送：</p>
-<p>Action: QueueRemove<br>Queue: 200<br>Interface: sip/3001</p>
+<p>Action: QueueRemove<br>
+Queue: 200<br>
+Interface: sip/3001</p>
 <p>返回：</p>
 <p>Response: Success</p>
 <p>Message: Removed interface from queue</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueMemberRemoved</p>
 <p>Privilege: agent,all</p>
 <p>Queue: 200</p>
 <p>Location: sip/3001</p>
 <p>MemberName: sip/3001</p>
-<p>&nbsp;</p>
-<p><strong>Queues</strong> <strong>：</strong>返回全部队列的配置以及电话数据信息。</p>
+<p> </p>
+<p><strong>Queues</strong> **：**返回全部队列的配置以及电话数据信息。</p>
 <p>例子：</p>
 <p>发送：</p>
 <p>Action： Queues</p>
@@ -629,19 +679,19 @@
 <p>Local/2003@from-internal/n (Invalid) has taken no calls yet</p>
 <p>Local/2001@from-internal/n (Invalid) has taken no calls yet</p>
 <p>No Callers</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>default has 0 calls (max unlimited) in ‘ringall’ strategy (0s holdtime), W:0, C:0, A:0, SL:0.0% within 0s</p>
 <p>No Members</p>
 <p>No Callers</p>
-<p>&nbsp;</p>
-<p><strong>QueueStatus</strong> <strong>：</strong>返回全部队列的电话数据信息。</p>
+<p> </p>
+<p><strong>QueueStatus</strong> **：**返回全部队列的电话数据信息。</p>
 <p>例子：</p>
 <p>发送：</p>
 <p>Action: QueueStatus</p>
 <p>返回：</p>
 <p>Response: Success</p>
 <p>Message: Queue status will follow</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueParams</p>
 <p>Queue: 200</p>
 <p>Max: 0</p>
@@ -652,7 +702,7 @@
 <p>ServiceLevel: 0</p>
 <p>ServicelevelPerf: 0.0</p>
 <p>Weight: 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueMember</p>
 <p>Queue: 200</p>
 <p>Name: Local/2002@from-internal/n</p>
@@ -663,7 +713,7 @@
 <p>LastCall: 0</p>
 <p>Status: 4</p>
 <p>Paused: 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueMember</p>
 <p>Queue: 200</p>
 <p>Name: Local/2003@from-internal/n</p>
@@ -674,7 +724,7 @@
 <p>LastCall: 0</p>
 <p>Status: 4</p>
 <p>Paused: 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueMember</p>
 <p>Queue: 200</p>
 <p>Name: Local/2001@from-internal/n</p>
@@ -685,7 +735,7 @@
 <p>LastCall: 0</p>
 <p>Status: 4</p>
 <p>Paused: 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueParams</p>
 <p>Queue: default</p>
 <p>Max: 0</p>
@@ -696,10 +746,10 @@
 <p>ServiceLevel: 0</p>
 <p>ServicelevelPerf: 0.0</p>
 <p>Weight: 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: QueueStatusComplete</p>
-<p>&nbsp;</p>
-<p><strong>Redirect</strong> <strong>：</strong>重定向一个呼叫。</p>
+<p> </p>
+<p><strong>Redirect</strong> **：**重定向一个呼叫。</p>
 <p>参数：</p>
 <p>Channel：重定向的通道。</p>
 <p>ExtraChannel：重定向的第二通道（可选）</p>
@@ -707,7 +757,7 @@
 <p>Context: 重定向的上下文。</p>
 <p>Priority：重定向的优先级</p>
 <p>ActionID：（可选）</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子（把两个呼叫重定向到meetme房间）</p>
 <p>Action: Redirect</p>
 <p>Channel: Zap/73-1</p>
@@ -715,28 +765,31 @@
 <p>Exten: 8600029</p>
 <p>Context: default</p>
 <p>Priority: 1</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
 <p>8600029的上下文是default，并将进入meetme房间。</p>
-<p>&nbsp;</p>
-<p><strong>SetCDRUserField</strong> <strong>：</strong>设置用户的呼叫详细记录。</p>
+<p> </p>
+<p><strong>SetCDRUserField</strong> **：**设置用户的呼叫详细记录。</p>
 <p>参数：UserField，Channel，Append</p>
-<p>&nbsp;</p>
-<p><strong>SetVar</strong> <strong>：</strong>设置通道变量。</p>
+<p> </p>
+<p><strong>SetVar</strong> **：**设置通道变量。</p>
 <p>参数：Channel, Variable, Value</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送：</p>
-<p>Action: Setvar<br>Channel: Zap/1-1<br>Variable: AtestVariable<br>Value: This is now set</p>
-<p>&nbsp;</p>
-<p><strong>SIPpeers</strong> <strong>：</strong>显示sip用户列表。</p>
+<p>Action: Setvar<br>
+Channel: Zap/1-1<br>
+Variable: AtestVariable<br>
+Value: This is now set</p>
+<p> </p>
+<p><strong>SIPpeers</strong> **：**显示sip用户列表。</p>
 <p>例子：</p>
 <p>发送：</p>
 <p>Action: SIPpeers</p>
 <p>返回</p>
 <p>Response: Success</p>
 <p>Message: Peer status list will follow</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: PeerEntry</p>
 <p>Channeltype: SIP</p>
 <p>ObjectName: 3001</p>
@@ -749,7 +802,7 @@
 <p>ACL: no</p>
 <p>Status: UNKNOWN</p>
 <p>RealtimeDevice: no</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: PeerEntry</p>
 <p>Channeltype: SIP</p>
 <p>ObjectName: 2003</p>
@@ -762,7 +815,7 @@
 <p>ACL: no</p>
 <p>Status: UNKNOWN</p>
 <p>RealtimeDevice: no</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: PeerEntry</p>
 <p>Channeltype: SIP</p>
 <p>ObjectName: 2002</p>
@@ -775,7 +828,7 @@
 <p>ACL: no</p>
 <p>Status: UNKNOWN</p>
 <p>RealtimeDevice: no</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: PeerEntry</p>
 <p>Channeltype: SIP</p>
 <p>ObjectName: 2001</p>
@@ -788,115 +841,152 @@
 <p>ACL: no</p>
 <p>Status: UNKNOWN</p>
 <p>RealtimeDevice: no</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: PeerlistComplete</p>
 <p>ListItems: 4</p>
-<p>&nbsp;</p>
-<p><strong>Status</strong> <strong>：</strong>返回所有开放通道或指定通道的状态。</p>
+<p> </p>
+<p><strong>Status</strong> **：**返回所有开放通道或指定通道的状态。</p>
 <p>参数：Channel (可选), ActionID (可选)</p>
 <p>例子：</p>
 <p>发送：</p>
 <p>Action：Status</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>返回：</p>
 <p>Response: Success</p>
 <p>Message: Channel status will follow</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: StatusComplete</p>
-<p>&nbsp;</p>
-<p><strong>StopMonitor</strong> <strong>：</strong>停止检测某通道。</p>
+<p> </p>
+<p><strong>StopMonitor</strong> **：**停止检测某通道。</p>
 <p>参数：Channel</p>
 <p>例子：</p>
 <p>发送：</p>
-<p>Action: StopMonitor<br>Channel: Zap/1-1</p>
-<p>&nbsp;</p>
-<p><strong>ZapDialOffhook</strong> <strong>：</strong>从空闲的ZAP通道拨打呼叫。</p>
+<p>Action: StopMonitor<br>
+Channel: Zap/1-1</p>
+<p> </p>
+<p><strong>ZapDialOffhook</strong> **：**从空闲的ZAP通道拨打呼叫。</p>
 <p>参数：</p>
-<p>ZapChannel: ZAP 通道<br>Number: 所拨打的号码</p>
-<p>&nbsp;</p>
-<p><strong>ZapDNDoff</strong> <strong>：</strong>绑定ZAP通道而不影响其关闭状态</p>
+<p>ZapChannel: ZAP 通道<br>
+Number: 所拨打的号码</p>
+<p> </p>
+<p><strong>ZapDNDoff</strong> **：**绑定ZAP通道而不影响其关闭状态</p>
 <p>参数：ZAPChannel</p>
-<p>&nbsp;</p>
-<p><strong>ZapDNDon</strong> <strong>：</strong>绑定ZAP通道而不影响其开放状态</p>
+<p> </p>
+<p><strong>ZapDNDon</strong> **：**绑定ZAP通道而不影响其开放状态</p>
 <p>参数：ZAPChannel</p>
-<p>&nbsp;</p>
-<p><strong>ZapHangup</strong> <strong>：</strong>挂断ZAP通道。</p>
+<p> </p>
+<p><strong>ZapHangup</strong> **：**挂断ZAP通道。</p>
 <p>参数：ZAPChannel</p>
-<p>&nbsp;</p>
-<p><strong>ZapTransfer</strong> <strong>：</strong>转拨ZAP通道。</p>
+<p> </p>
+<p><strong>ZapTransfer</strong> **：**转拨ZAP通道。</p>
 <p>参数：ZAPChannel</p>
-<p>&nbsp;</p>
-<p><strong>ZapShowChannels</strong> <strong>：</strong>显示所有ZAP通道信息。</p>
+<p> </p>
+<p><strong>ZapShowChannels</strong> **：**显示所有ZAP通道信息。</p>
 <p>参数：ActionID（可选）</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Asterisk 1.2.1新增：</p>
-<p><strong>AgentCallBackLogin</strong> <strong>：</strong>设置用户以回拨方式登录。</p>
+<p><strong>AgentCallBackLogin</strong> **：**设置用户以回拨方式登录。</p>
 <p>参数：</p>
-<p>Agent:用户登录的ID<br>Exten: 用于回拨的分机<br>Context: 用于回拨的上下文<br>AckCall: 设置在用户回拨时进行验证</p>
+<p>Agent:用户登录的ID<br>
+Exten: 用于回拨的分机<br>
+Context: 用于回拨的上下文<br>
+AckCall: 设置在用户回拨时进行验证</p>
 <p>WrapupTime: 挂断重拨的最小间隔时间</p>
 <p>ActionID:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送：</p>
-<p>Action: AgentCallBackLogin<br>Agent: 1234<br>Exten: 1234<br>Context: myqueues<br>AckCall: true<br>WrapupTime: 30<br>ActionID: 12345</p>
-<p>&nbsp;</p>
-<p><strong>AgentLogoff</strong> <strong>：</strong>注销一个用户。</p>
+<p>Action: AgentCallBackLogin<br>
+Agent: 1234<br>
+Exten: 1234<br>
+Context: myqueues<br>
+AckCall: true<br>
+WrapupTime: 30<br>
+ActionID: 12345</p>
+<p> </p>
+<p><strong>AgentLogoff</strong> **：**注销一个用户。</p>
 <p>参数：</p>
 <p>Agent：用户登录Id</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例子：</p>
 <p>发送：</p>
-<p>Action: AgentLogoff<br>Agent: 1234</p>
-<p>&nbsp;</p>
-<p><strong>Agents</strong> <strong>：</strong>显示所有用户信息。</p>
+<p>Action: AgentLogoff<br>
+Agent: 1234</p>
+<p> </p>
+<p><strong>Agents</strong> **：**显示所有用户信息。</p>
 <p>例子：</p>
 <p>发送：</p>
 <p>Action: Agents</p>
-<p>&nbsp;</p>
-<p><strong>DBGet</strong> <strong>：</strong>查询数据库信息。</p>
+<p> </p>
+<p><strong>DBGet</strong> **：**查询数据库信息。</p>
 <p>参数：Family，Key</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>发送：</p>
-<p>Action: DBGet<br>Family:<br>Key:</p>
-<p>失败返回：<br>Response: Error<br>Message: Database entry not found</p>
-<p>成功返回：<br>Response: Success<br>Message: Result will follow</p>
-<p>Event: DBGetResponse<br>Family:<br>Key:<br>Val:</p>
-<p>&nbsp;</p>
+<p>Action: DBGet<br>
+Family:<br>
+Key:</p>
+<p>失败返回：<br>
+Response: Error<br>
+Message: Database entry not found</p>
+<p>成功返回：<br>
+Response: Success<br>
+Message: Result will follow</p>
+<p>Event: DBGetResponse<br>
+Family:<br>
+Key:<br>
+Val:</p>
+<p> </p>
 <p>在Perl脚本中的运用：</p>
-<p>use Asterisk::Manager;<br>my $astman = new Asterisk::Manager;<br>$astman-&gt;user(‘’);<br>$astman-&gt;secret(‘’);<br>$astman-&gt;host(‘’);<br>$astman-&gt;connect || die $astman-&gt;error . “/n”;</p>
-<p>$astman-&gt;sendcommand(Action =&gt; ‘DBGet’, Family =&gt; ‘’, Key =&gt; ‘’);<br>my @result = $astman-&gt;sendcommand(Event =&gt; ‘DBGetResponse’);<br>$astman-&gt;disconnect;</p>
+<p>use Asterisk::Manager;<br>
+my $astman = new Asterisk::Manager;<br>
+$astman-&gt;user(’’);<br>
+$astman-&gt;secret(’’);<br>
+$astman-&gt;host(’’);<br>
+$astman-&gt;connect || die $astman-&gt;error . “/n”;</p>
+<p>$astman-&gt;sendcommand(Action =&gt; ‘DBGet’, Family =&gt; ‘’, Key =&gt; ‘’);<br>
+my @result = $astman-&gt;sendcommand(Event =&gt; ‘DBGetResponse’);<br>
+$astman-&gt;disconnect;</p>
 <p>my $value = $result[7]; -&gt; Value 7 is the returned Value</p>
-<p>&nbsp;</p>
-<p><strong>DBPut:</strong>更新数据库信息。</p>
+<p> </p>
+<p>**DBPut:**更新数据库信息。</p>
 <p>发送：</p>
-<p>Action: DBPut<br>Family:<br>Key:<br>Value:  (note, as of Asterisk 1.4 The Manager API wants Val: )</p>
-<p>返回：<br>Response: Success<br>Message: Updated database successfully</p>
-<p>&nbsp;</p>
+<p>Action: DBPut<br>
+Family:<br>
+Key:<br>
+Value:  (note, as of Asterisk 1.4 The Manager API wants Val: )</p>
+<p>返回：<br>
+Response: Success<br>
+Message: Updated database successfully</p>
+<p> </p>
 <p>使用方法同DBGet一样。</p>
-<p>&nbsp;</p>
-<p><strong>QueuePause</strong> <strong>：</strong>停止/开启队列中某个成员的使用。</p>
+<p> </p>
+<p><strong>QueuePause</strong> **：**停止/开启队列中某个成员的使用。</p>
 <p>参数：</p>
 <p>Queue: 成员所在队列名.（可选，如无此项将在成员所在的所有队列停止成员的使用）</p>
 <p>Interface: 队列成员名 (如sip/1000, zap/1-1, agent/1000)</p>
 <p>Paused: 停止或开启 (true or false)</p>
-<p>&nbsp;</p>
+<p> </p>
 <p><strong>SIPshowPeer</strong> <strong>：显示指定</strong> <strong>peer</strong> <strong>信息</strong></p>
 <p>参数: peer:指定的peer。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Asterisk 1.4.0新增：</p>
-<p><strong>PlayDTMF</strong> <strong>：</strong>在指定通道上发送双音多频信号数字。</p>
+<p><strong>PlayDTMF</strong> **：**在指定通道上发送双音多频信号数字。</p>
 <p>参数：</p>
 <p>Channel：指定的通道</p>
 <p>Digit：双音多频信号数字</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>发送：</p>
-<p>Action: PlayDTMF<br>Channel: SIP/123-e2b2<br>Digit: 1</p>
+<p>Action: PlayDTMF<br>
+Channel: SIP/123-e2b2<br>
+Digit: 1</p>
 <p>成功返回：</p>
-<p>Response: Success<br>Message: DTMF successfully queued</p>
+<p>Response: Success<br>
+Message: DTMF successfully queued</p>
 <p>失败返回：</p>
-<p>Response: Error<br>Message: No such channel</p>
-<p>&nbsp;</p>
-<p><strong>UpdateConfig</strong> <strong>：</strong>更新配置文件。</p>
+<p>Response: Error<br>
+Message: No such channel</p>
+<p> </p>
+<p><strong>UpdateConfig</strong> **：**更新配置文件。</p>
 <p>参数：</p>
 <p>SrcFilename: 要读取的配置文件(.conf)</p>
 <p>DstFilename: 要更新的配置文件(.conf)</p>
@@ -906,7 +996,7 @@
 <p>Var-XXXXXX: 采用的变量</p>
 <p>Value-XXXXXX: 变量的值</p>
 <p>Match-XXXXXX: 其他匹配信息</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>例1：（更新manager.conf）</p>
 <p>action: updateconfig</p>
 <p>reload: yes</p>
@@ -916,9 +1006,16 @@
 <p>cat-000000: newuser</p>
 <p>var-000000: secret</p>
 <p>value-000000: nottelling</p>
-<p>例2:(更新extension.conf，通过’&gt;’增加前缀)</p>
-<p>action:updateconfig<br>reload:yes<br>srcfilename: extensions.conf<br>dstfilename: extensions.conf<br>Action-000000:append<br>Cat-000000: ami-test<br>Var-000000: exten<br>Value-000000: &gt;999,1,Dial(SIP/Bob)</p>
-<p>&nbsp;</p>
+<p>例2:(更新extension.conf，通过’&gt;'增加前缀)</p>
+<p>action:updateconfig<br>
+reload:yes<br>
+srcfilename: extensions.conf<br>
+dstfilename: extensions.conf<br>
+Action-000000:append<br>
+Cat-000000: ami-test<br>
+Var-000000: exten<br>
+Value-000000: &gt;999,1,Dial(SIP/Bob)</p>
+<p> </p>
 <p>例3：（删除manager.conf中的配置信息）</p>
 <p>action: updateconfig</p>
 <p>srcfilename: manager.conf</p>
@@ -928,34 +1025,34 @@
 <p>var-000000: secret</p>
 <p>value-000000: nottelling</p>
 <p>match-000000: nottelling</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>删除时必须设置’value’和’match’，不设置’match’将会删除变量为’var’所有条目</p>
-<p>&nbsp;</p>
-<p><strong>GetConfig</strong> <strong>：</strong>显示配置文件内容，主要给AJAM和asterisk图形界面使用。</p>
+<p> </p>
+<p><strong>GetConfig</strong> **：**显示配置文件内容，主要给AJAM和asterisk图形界面使用。</p>
 <p>变量：FileName：显示的文件名（.conf）。</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p><strong>Asterisk</strong> <strong>事件（</strong> <strong>Event</strong> <strong>）</strong> <strong>：</strong></p>
 <p>以下的事件都在asterisk源码中定义。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p><strong>用户状态事件：</strong></p>
-<p>&nbsp;</p>
+<p> </p>
 <p>‘Agentcallbacklogin’ 事件 ：</p>
 <p>描述:</p>
 <p>[来源于chan_agent.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Agentcallbacklogin</p>
 <p>Agent:</p>
 <p>Loginchan:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>‘Agentcallbacklogoff’事件</p>
+<p> </p>
+<p>'Agentcallbacklogoff’事件</p>
 <p>描述:</p>
 <p>[来源于chan_agent.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Agentcallbacklogoff</p>
 <p>Agent:</p>
@@ -963,18 +1060,18 @@
 <p>Logintime:</p>
 <p>Reason: Autologoff</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Agentcallbacklogoff</p>
 <p>Agent:</p>
 <p>Loginchan:</p>
 <p>Logintime:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘AgentCalled’事件</p>
+<p> </p>
+<p> </p>
+<p>'AgentCalled’事件</p>
 <p>描述:</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: AgentCalled</p>
 <p>AgentCalled:</p>
@@ -983,12 +1080,12 @@
 <p>Context:</p>
 <p>Extension:</p>
 <p>Priority:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘AgentComplete’事件</p>
+<p> </p>
+<p> </p>
+<p>'AgentComplete’事件</p>
 <p>描述:</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: AgentComplete</p>
 <p>Queue:</p>
@@ -999,12 +1096,12 @@
 <p>HoldTime:</p>
 <p>TalkTime:</p>
 <p>Reason:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘AgentConnect’事件</p>
+<p> </p>
+<p> </p>
+<p>'AgentConnect’事件</p>
 <p>描述:</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: AgentConnect</p>
 <p>Queue:</p>
@@ -1014,13 +1111,13 @@
 <p>MemberName:</p>
 <p>Holdtime:</p>
 <p>BridgedChannel:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘AgentDump’事件</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>'AgentDump’事件</p>
 <p>描述:</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: AgentDump</p>
 <p>Queue:</p>
@@ -1028,36 +1125,36 @@
 <p>Channel:</p>
 <p>Member:</p>
 <p>MemberName:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Agentlogin’事件</p>
+<p> </p>
+<p> </p>
+<p>'Agentlogin’事件</p>
 <p>描述:</p>
 <p>[来源于 chan_agent.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Agentlogin</p>
 <p>Agent:</p>
 <p>Channel:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Agentlogoff’事件</p>
+<p> </p>
+<p> </p>
+<p>'Agentlogoff’事件</p>
 <p>描述:</p>
 <p>[来源于 chan_agent.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Agentlogoff</p>
 <p>Agent:</p>
 <p>Logintime:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘QueueMemberAdded’事件</p>
+<p> </p>
+<p> </p>
+<p>'QueueMemberAdded’事件</p>
 <p>描述:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>队列增加成员动作</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Queue: testing</p>
 <p>Location: Agent/AgentId</p>
@@ -1067,57 +1164,57 @@
 <p>LastCall: 0</p>
 <p>Status: 4</p>
 <p>Paused: 1</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘QueueMemberPaused’事件</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<p>'QueueMemberPaused’事件</p>
+<p> </p>
 <p>描述:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>响应动作: QueuePause</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: QueueMemberPaused</p>
 <p>Location:</p>
 <p>MemberName:</p>
 <p>Paused:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘QueueMemberStatus’事件</p>
+<p> </p>
+<p> </p>
+<p>'QueueMemberStatus’事件</p>
 <p>描述:</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
 <p>Status的值可能为:</p>
 <p>/<em>设备是有效的，但不知道的通道状态</em>/</p>
 <p>define AST_DEVICE_UNKNOWN 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>/*设备没有使用 */</p>
 <p>define AST_DEVICE_NOT_INUSE 1</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>/*设备使用中 */</p>
 <p>define AST_DEVICE_INUSE 2</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
 <p>/*设备忙 */</p>
 <p>define AST_DEVICE_BUSY 3</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>/*设备无效 */</p>
 <p>define AST_DEVICE_INVALID 4</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>/*设备不可用 */</p>
 <p>define AST_DEVICE_UNAVAILABLE 5</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>/* 设备在响铃*/</p>
 <p>define AST_DEVICE_RINGING 6</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>/<em>设备在响铃并在使用中</em>/</p>
 <p>define AST_DEVICE_RINGINUSE 7</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>/*设备在等待 */</p>
 <p>define AST_DEVICE_ONHOLD 8</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
 <p>示例:</p>
 <p>Event: QueueMemberStatus</p>
 <p>Queue:</p>
@@ -1129,33 +1226,35 @@
 <p>LastCall:</p>
 <p>Status:</p>
 <p>Paused:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>-</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<ul>
+<li></li>
+</ul>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p><strong>命令状态事件：</strong></p>
-<p>&nbsp;</p>
+<p> </p>
 <p><strong>呼叫状态事件：</strong></p>
-<p>&nbsp;</p>
-<p>‘CDR’事件</p>
+<p> </p>
+<p>'CDR’事件</p>
 <p>描述:</p>
 <p>[来源于 cdr_manager.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>必须在 cdr_manager.conf 配置文件中有：</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>general</p>
 <p>enabled = yes</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Cdr</p>
 <p>AccountCode:</p>
@@ -1176,12 +1275,12 @@
 <p>AMAFlags:</p>
 <p>UniqueID:</p>
 <p>UserField:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Dial’事件</p>
+<p> </p>
+<p> </p>
+<p>'Dial’事件</p>
 <p>描述:</p>
 <p>[来源于 app_dial.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Dial</p>
 <p>Privilege: call,all</p>
@@ -1191,31 +1290,31 @@
 <p>CallerIDName: default</p>
 <p>SrcUniqueID: 1149161705.2</p>
 <p>DestUniqueID: 1149161705.4</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘ExtensionStatus’事件</p>
+<p> </p>
+<p> </p>
+<p>'ExtensionStatus’事件</p>
 <p>描述:</p>
 <p>[来源于 manager.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: ExtensionStatus</p>
 <p>Exten:</p>
 <p>Context:</p>
 <p>Status:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Hangup’事件</p>
+<p> </p>
+<p> </p>
+<p>'Hangup’事件</p>
 <p>描述:</p>
 <p>[来源于 channel.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Hangup</p>
 <p>Channel: SIP/101-3f3f</p>
 <p>Uniqueid: 1094154427.10</p>
 <p>Cause: 0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Cause 代码：</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>未分配 = 1</p>
 <p>无到达路由 = 2</p>
 <p>无路由目的地 = 3</p>
@@ -1261,23 +1360,23 @@
 <p>协议错误 = 111</p>
 <p>互通 = 127</p>
 <p>未定义的 = 0</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘MusicOnHold’事件</p>
+<p> </p>
+<p> </p>
+<p>'MusicOnHold’事件</p>
 <p>描述:</p>
 <p>事件表示电话等待时，播放音乐</p>
 <p>示例:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: MusicOnHold</p>
 <p>Channel:</p>
 <p>State:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Join’事件</p>
+<p> </p>
+<p> </p>
+<p>'Join’事件</p>
 <p>描述:</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Join</p>
 <p>Channel:</p>
@@ -1285,140 +1384,140 @@
 <p>Queue:</p>
 <p>Position:</p>
 <p>Count:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Leave’事件</p>
+<p> </p>
+<p> </p>
+<p>'Leave’事件</p>
 <p>描述:</p>
 <p>[来源于 app_queue.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Leave</p>
 <p>Channel:</p>
 <p>Queue:</p>
 <p>Count:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Link’事件</p>
+<p> </p>
+<p> </p>
+<p>'Link’事件</p>
 <p>描述:</p>
 <p>当两个通道已连接后开始交换声音数据时发生’link’事件</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Link</p>
 <p>Channel1: SIP/101-3f3f</p>
 <p>Channel2: Zap/2-1</p>
 <p>Uniqueid1: 1094154427.10</p>
 <p>Uniqueid2: 1094154427.11</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘MeetmeJoin’事件</p>
+<p> </p>
+<p> </p>
+<p>'MeetmeJoin’事件</p>
 <p>描述:</p>
 <p>[来源于 app_meetme.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: MeetmeJoin</p>
 <p>Channel:</p>
 <p>Uniqueid:</p>
 <p>Meetme:</p>
 <p>Usernum:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘MeetmeLeave’事件</p>
+<p> </p>
+<p> </p>
+<p>'MeetmeLeave’事件</p>
 <p>描述:</p>
 <p>[来源于 app_meetme.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: MeetmeLeave</p>
 <p>Channel:</p>
 <p>Uniqueid:</p>
 <p>Meetme:</p>
 <p>Usernum:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘MeetmeStopTalking’事件</p>
+<p> </p>
+<p> </p>
+<p>'MeetmeStopTalking’事件</p>
 <p>描述:</p>
 <p>[来源于 app_meetme.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>注意：</p>
 <p>这要求在meetme应用中以选中T选</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: MeetmeStopTalking</p>
 <p>Privilege: call,all</p>
 <p>Channel: SIP/200-ABC1</p>
 <p>Uniqueid: 1234567890.1</p>
 <p>Meetme: 400</p>
 <p>Usernum: 2</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘MeetmeTalking’事件</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>'MeetmeTalking’事件</p>
 <p>描述:</p>
 <p>[来源于 app_meetme.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>注意：</p>
 <p>这要求在meetme应用中以选中T选项</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: MeetmeTalking</p>
 <p>Privilege: call,all</p>
 <p>Channel: SIP/200-ABC1</p>
 <p>Uniqueid: 1234567890.1</p>
 <p>Meetme: 400</p>
 <p>Usernum: 2</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘MessageWaiting’事件</p>
+<p> </p>
+<p> </p>
+<p>'MessageWaiting’事件</p>
 <p>描述:</p>
 <p>[来源于 app_voicemail.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: MessageWaiting</p>
 <p>Mailbox: @</p>
 <p>Waiting:</p>
 <p>New:</p>
 <p>Old:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: MessageWaiting</p>
 <p>Mailbox:</p>
 <p>Waiting:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Newcallerid’事件</p>
+<p> </p>
+<p> </p>
+<p>'Newcallerid’事件</p>
 <p>描述:</p>
 <p>[来源于 channel.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Newcallerid</p>
 <p>Channel:</p>
 <p>Callerid:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Newchannel’事件</p>
+<p> </p>
+<p> </p>
+<p>'Newchannel’事件</p>
 <p>描述:</p>
 <p>[来源于 channel.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Newchannel</p>
 <p>Channel: Zap/2-1</p>
 <p>State: Rsrvd</p>
 <p>Callerid:</p>
 <p>Uniqueid: 1094154427.11</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Newchannel</p>
 <p>Channel: SIP/101-3f3f</p>
 <p>State: Ring</p>
 <p>Callerid: 101</p>
 <p>Uniqueid: 1094154427.10</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Newexten’事件</p>
+<p> </p>
+<p> </p>
+<p>'Newexten’事件</p>
 <p>描述:</p>
 <p>当一项PBX函数运行（例如执行拨号规则）时发生此事件。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Newexten</p>
 <p>Channel: SIP/101-00c7</p>
@@ -1428,7 +1527,7 @@
 <p>Application: Goto</p>
 <p>AppData: s-BUSY</p>
 <p>Uniqueid: 1094154321.8</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Newexten</p>
 <p>Channel: SIP/101-3f3f</p>
 <p>Context: local_extensions</p>
@@ -1437,7 +1536,7 @@
 <p>Application: AGI</p>
 <p>AppData: /etc/asterisk/agi/ks_doorman_pickup.py|channel_up</p>
 <p>Uniqueid: 1094154427.10</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Newexten</p>
 <p>Channel: SIP/101-3f3f</p>
 <p>Context: local_extensions</p>
@@ -1446,12 +1545,12 @@
 <p>Application: Dial</p>
 <p>AppData: Zap/G1/17070</p>
 <p>Uniqueid: 1094154427.10</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘ParkedCall’事件</p>
+<p> </p>
+<p> </p>
+<p>'ParkedCall’事件</p>
 <p>描述:</p>
 <p>[来源于 res_features.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: ParkedCall</p>
 <p>Exten:</p>
@@ -1459,183 +1558,183 @@
 <p>From:</p>
 <p>Timeout:</p>
 <p>CallerID:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Rename’事件</p>
+<p> </p>
+<p> </p>
+<p>'Rename’事件</p>
 <p>描述:</p>
 <p>[来源于 channel.c: channel ‘rename’ event]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Rename</p>
 <p>Oldname:</p>
 <p>Newname:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘SetCDRUserField’事件</p>
+<p> </p>
+<p> </p>
+<p>'SetCDRUserField’事件</p>
 <p>描述:</p>
 <p>[来源于 app_setcdruserfield.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Unlink’事件</p>
+<p> </p>
+<p> </p>
+<p>'Unlink’事件</p>
 <p>描述:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>当两个连接的通道断开是发生此事件，通常为挂机时</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Unlink</p>
 <p>Channel1: SIP/101-3f3f</p>
 <p>Channel2: Zap/2-1</p>
 <p>Uniqueid1: 1094154427.10</p>
 <p>Uniqueid2: 1094154427.11</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘UnParkedCall’事件</p>
+<p> </p>
+<p> </p>
+<p>'UnParkedCall’事件</p>
 <p>描述:</p>
 <p>[来源于 res_features.c]</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p><strong>日志状态事件：</strong></p>
-<p>&nbsp;</p>
+<p> </p>
 <p><strong>系统状态事件：</strong></p>
-<p>&nbsp;</p>
-<p>‘Alarm’事件:</p>
+<p> </p>
+<p>'Alarm’事件:</p>
 <p>描述:</p>
 <p>[来源于 chan_zap.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Alarm</p>
 <p>Alarm:&lt;(Red|Yellow|Blue|No|Unknown)Alarm|Recovering|Loopback|Not Open|None&gt;</p>
 <p>Channel:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘AlarmClear’事件:</p>
+<p> </p>
+<p> </p>
+<p>'AlarmClear’事件:</p>
 <p>描述:</p>
 <p>[来源于 chan_zap.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: AlarmClear</p>
 <p>Channel:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘DNDState’事件:</p>
+<p> </p>
+<p> </p>
+<p>'DNDState’事件:</p>
 <p>描述:</p>
 <p>[来源于 chan_dahdi.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: DNDState</p>
 <p>Channel: Zap/1</p>
 <p>Status:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘LogChannel’事件</p>
+<p> </p>
+<p> </p>
+<p>'LogChannel’事件</p>
 <p>描述:</p>
 <p>[来源于 logger.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: LogChannel</p>
 <p>Channel: /var/log/asterisk/messages</p>
 <p>Enabled: Yes</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: LogChannel</p>
 <p>Channel: /var/log/asterisk/messages</p>
 <p>Enabled: No</p>
 <p>Reason: 13 - Permission denied</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘PeerStatus’事件</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>'PeerStatus’事件</p>
 <p>描述:</p>
 <p>当用户注册或注销时发生此事件</p>
 <p>[来源于 chan_sip.c, chan_iax2.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: PeerStatus</p>
 <p>Peer: SIP/2005</p>
 <p>PeerStatus: Registered</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: PeerStatus</p>
 <p>Peer: SIP/2005</p>
 <p>PeerStatus: Unregistered</p>
 <p>Cause: Expired</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: PeerStatus</p>
 <p>Peer: IAX2/2007</p>
 <p>PeerStatus:</p>
 <p>Time: 1000</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Registry’事件</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>'Registry’事件</p>
 <p>描述:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>当应户注册时发生的事件</p>
 <p>[来源于 chan_sip.c, chan_iax2.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Registry</p>
 <p>Channel: SIP</p>
 <p>Domain: sip.domain</p>
 <p>Status: Registered</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Reload’事件</p>
+<p> </p>
+<p> </p>
+<p>'Reload’事件</p>
 <p>描述:</p>
 <p>当 “RELOAD” 命令执行时发生此事件</p>
 <p>[来源于 manager.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Reload</p>
 <p>Message: Reload Requested</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘Shutdown’事件</p>
+<p> </p>
+<p> </p>
+<p>'Shutdown’事件</p>
 <p>描述:</p>
 <p>[来源于 asterisk.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event: Shutdown</p>
 <p>Shutdown:</p>
 <p>Restart:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p><strong>User Status</strong> <strong>事件：</strong></p>
-<p>&nbsp;</p>
-<p>‘UserEvent’事件</p>
+<p> </p>
+<p>'UserEvent’事件</p>
 <p>描述:</p>
 <p>[来源于 app_userevent.c]</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例:</p>
 <p>Event:</p>
 <p>Channel:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event:</p>
 <p>Channel:</p>
 <p>Uniqueid:</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p><strong>详细状态事件：</strong></p>
 <pre>'Newstate'事件
 </pre>
@@ -1645,22 +1744,22 @@
 <p>State: Dialing</p>
 <p>Callerid: 101</p>
 <p>Uniqueid: 1094154427.11</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Newstate</p>
 <p>Channel: Zap/2-1</p>
 <p>State: Up</p>
 <p>Callerid: 101</p>
 <p>Uniqueid: 1094154427.11</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘ParkedCallsComplete:’事件</p>
+<p> </p>
+<p> </p>
+<p>'ParkedCallsComplete:'事件</p>
 <p>描述：</p>
 <p>发生在ParkedCalls事件之后</p>
 <p>示例：</p>
 <p>Event: ParkedCallsComplete</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘QueueParams:’事件</p>
+<p> </p>
+<p> </p>
+<p>'QueueParams:'事件</p>
 <p>描述：</p>
 <p>响应Queues动作的事件</p>
 <p>示例：</p>
@@ -1691,7 +1790,7 @@
 <p>响应Queues动作表示输出结束。</p>
 <p>示例：</p>
 <p>Event: QueueStatusEnd</p>
-<p>&nbsp;</p>
+<p> </p>
 <pre>'Status'事件
 </pre>
 <p>示例：</p>
@@ -1702,10 +1801,10 @@
 <p>State: Up</p>
 <p>Link: SIP/101-5cf0</p>
 <p>Uniqueid: 1094166088.26</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>Event: Status</p>
 <p>Channel: SIP/101-5cf0</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>CallerID: 101</p>
 <p>Account:</p>
 <p>State: Up</p>
@@ -1715,15 +1814,15 @@
 <p>Seconds: 11</p>
 <p>Link: Zap/2-1</p>
 <p>Uniqueid: 1094166088.25</p>
-<p>&nbsp;</p>
-<p>‘StatusComplete’事件</p>
+<p> </p>
+<p>'StatusComplete’事件</p>
 <p>描述：</p>
 <p>响应Status动作的事件，表示状态输出结束。</p>
 <p>示例：</p>
 <p>Event: StatusComplete</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘ZapShowChannels’事件</p>
+<p> </p>
+<p> </p>
+<p>'ZapShowChannels’事件</p>
 <p>描述：</p>
 <p>响应ZapShowChannels动作的事件。</p>
 <p>示例：</p>
@@ -1732,38 +1831,38 @@
 <p>Signalling: FXS Kewlstart</p>
 <p>Context: pstn_menu</p>
 <p>Alarm: No Alarm</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>‘ZapShowChannelsComplete事件</p>
+<p> </p>
+<p> </p>
+<p>'ZapShowChannelsComplete事件</p>
 <p>描述：</p>
 <p>响应ZapShowChannels动作的事件，表示输出结束。</p>
 <p>示例：</p>
 <p>Event: ZapShowChannelsComplete</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p><strong>动作响应（</strong> <strong>Response</strong> <strong>）</strong></p>
 <p>格式：</p>
 <p>Response: ( Success或Error)</p>
 <p>Message: （显示信息）</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>示例：</p>
 <p>无动作或输入有误：</p>
 <p>Response: Error</p>
 <p>Message: Missing action in request</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>未知命令：</p>
 <p>Response: Error</p>
 <p>Message: Invalid/unknown command</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>无权限：</p>
 <p>Response: Error</p>
 <p>Message: Permission denied</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>成功：</p>
 <p>Response: Success</p>
 <p>Message: Zap channel status will follow</p>
-<p>&nbsp;</p>
+<p> </p>
 
                 
 

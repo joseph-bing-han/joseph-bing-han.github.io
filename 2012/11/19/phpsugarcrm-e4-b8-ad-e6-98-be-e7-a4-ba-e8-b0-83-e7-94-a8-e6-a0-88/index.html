@@ -216,22 +216,31 @@
 
                 <p>转载请注明来源:<a href="http://blog.joseph-han.net/" title="Blog of Joseph Han" target="_blank" rel="noopener">Blog of Joseph Han</a></p>
 <p>最近调试SugarCRM时，总觉得SQL日志内容过于简单，无法查看该条SQL的调用栈，不利于分析SQL的层级关系。于是google了一下PHP输出调用栈的函数，找到结果如下：</p>
-<p>PHP5内置函数：debug_print_backtrace()和debug_backtrace()<br>这两个函数实现相同的目的——记录php函数的调用堆栈——但是表现不同。debug_print_backtrace直接在输出内容中打印出调用堆栈内容，debug_backtrace将调用堆栈以数组的形式返回供php程序使用。</p>
-<p>例子：<br>$e = new Exception();<br>$this-&gt;log-&gt;info(“\n——Query Start——\nQuery Trace:\n” . $e-&gt;getTraceAsString());<br>$this-&gt;log-&gt;info(“Query:\n” . $sql . “\n——Query End——“);</p>
-<p>输出结果：<br>——Query Start——<br>Query Trace:</p>
-<p>#0 /home/joseph/code/ult/sugarcrm/include/database/IBMDB2Manager.php(306): IBMDB2Manager-&gt;query(‘SELECT * FROM (…’, true, ‘Retrieving reco…’)</p>
-<p>#1 /home/joseph/code/ult/sugarcrm/data/SugarBean.php(5088): IBMDB2Manager-&gt;limitQuery(‘SELECT teams.* …’, 0, 1, true, ‘Retrieving reco…’)</p>
-<p>#2 /home/joseph/code/ult/sugarcrm/modules/Users/User.php(1534): SugarBean-&gt;retrieve_by_string_fields(Array)</p>
-<p>#3 /home/joseph/code/ult/sugarcrm/modules/Users/User.php(1528): User::staticGetPrivateTeamID(‘1’)</p>
-<p>#4 /home/joseph/code/ult/sugarcrm/include/MVC/View/SugarView.php(234): User-&gt;getPrivateTeamID()</p>
-<p>#5 /home/joseph/code/ult/sugarcrm/include/MVC/View/SugarView.php(112): SugarView-&gt;_trackView()</p>
-<p>#6 /home/joseph/code/ult/sugarcrm/include/MVC/Controller/SugarController.php(338): SugarView-&gt;process()</p>
-<p>#7 /home/joseph/code/ult/sugarcrm/include/MVC/Controller/SugarController.php(285): SugarController-&gt;processView()</p>
-<p>#8 /home/joseph/code/ult/sugarcrm/include/MVC/SugarApplication.php(82): SugarController-&gt;execute()</p>
-<p>#9 /home/joseph/code/ult/sugarcrm/index.php(36): SugarApplication-&gt;execute()</p>
-<p>#10 {main}<br>Mon Nov 19 21:08:27 2012 [20118][1][INFO] Query:<br>SELECT * FROM (SELECT teams.* FROM teams  WHERE associated_user_id = ‘1’ AND deleted=0) LIMIT  1 OPTIMIZE FOR 1 ROWS<br>——Query End——</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p>PHP5内置函数：debug_print_backtrace()和debug_backtrace()<br>
+这两个函数实现相同的目的——记录php函数的调用堆栈——但是表现不同。debug_print_backtrace直接在输出内容中打印出调用堆栈内容，debug_backtrace将调用堆栈以数组的形式返回供php程序使用。</p>
+<p>例子：<br>
+$e = new Exception();<br>
+$this-&gt;log-&gt;info(&quot;\n------Query Start------\nQuery Trace:\n&quot; . $e-&gt;getTraceAsString());<br>
+$this-&gt;log-&gt;info(“Query:\n” . $sql . “\n------Query End------”);</p>
+<p>输出结果：<br>
+------Query Start------<br>
+Query Trace:<br>
+#0 /home/joseph/code/ult/sugarcrm/include/database/IBMDB2Manager.php(306): IBMDB2Manager-&gt;query(‘SELECT * FROM (…’, true, ‘Retrieving reco…’)<br>
+#1 /home/joseph/code/ult/sugarcrm/data/SugarBean.php(5088): IBMDB2Manager-&gt;limitQuery(‘SELECT teams.* …’, 0, 1, true, ‘Retrieving reco…’)<br>
+#2 /home/joseph/code/ult/sugarcrm/modules/Users/User.php(1534): SugarBean-&gt;retrieve_by_string_fields(Array)<br>
+#3 /home/joseph/code/ult/sugarcrm/modules/Users/User.php(1528): User::staticGetPrivateTeamID(‘1’)<br>
+#4 /home/joseph/code/ult/sugarcrm/include/MVC/View/SugarView.php(234): User-&gt;getPrivateTeamID()<br>
+#5 /home/joseph/code/ult/sugarcrm/include/MVC/View/SugarView.php(112): SugarView-&gt;_trackView()<br>
+#6 /home/joseph/code/ult/sugarcrm/include/MVC/Controller/SugarController.php(338): SugarView-&gt;process()<br>
+#7 /home/joseph/code/ult/sugarcrm/include/MVC/Controller/SugarController.php(285): SugarController-&gt;processView()<br>
+#8 /home/joseph/code/ult/sugarcrm/include/MVC/SugarApplication.php(82): SugarController-&gt;execute()<br>
+#9 /home/joseph/code/ult/sugarcrm/index.php(36): SugarApplication-&gt;execute()<br>
+#10 {main}<br>
+Mon Nov 19 21:08:27 2012 [20118][1][INFO] Query:<br>
+SELECT * FROM (SELECT teams.* FROM teams  WHERE associated_user_id = ‘1’ AND deleted=0) LIMIT  1 OPTIMIZE FOR 1 ROWS<br>
+------Query End------</p>
+<p> </p>
+<p> </p>
 
                 
 

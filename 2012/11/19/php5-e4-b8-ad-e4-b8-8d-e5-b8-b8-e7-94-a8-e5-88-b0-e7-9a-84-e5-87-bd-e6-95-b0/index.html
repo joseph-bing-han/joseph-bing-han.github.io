@@ -213,12 +213,28 @@
                 post-container">
 
                 <p>转载请注明来源:<a href="http://blog.joseph-han.net/" title="Blog of Joseph Han" target="_blank" rel="noopener">Blog of Joseph Han</a></p>
-<p>1. sys_getloadavg();<br>这个函数就是Linux的load average值.<br>返回一个数组,分别是1,5,15分钟内服务器的负载情况.</p>
-<p>2.get_browser()<br>获取客户端浏览器信息。有了这个函数，再也不用自己去分析$_SERVER[‘HTTP_USER_AGENT’] 这个字符串了。<br>使用这个函数需要下载一个配置文件:browscap.ini<br>放好之后需要在php.ini中设置browscap的路径<br>搜索[browscap]<br>例如修改为以下内容:<br>[browsacp]<br>browscap = /etc/php/browscap.ini<br>重启你的服务器即可。</p>
-<p>3.glob()<br>列出当前目录下的所有文件。</p>
-<p>4.PHP Filter<br>如果你还在正则验证字符串，那么就真的“Out”了。自 PHP5.2 版本以后，内置了 PHP Fliter 模块用于专门验证 电子邮件、URL 等是否合法，示例代码：<br>var_dump(filter_var(‘bob@example.com’, FILTER_VALIDATE_EMAIL));由于是新生的模块，因此还有很多的陷阱，例如<br>filter_var(‘abc’, FILTER_VALIDATE_BOOLEAN); // bool(false)<br>filter_var(‘0’, FILTER_VALIDATE_BOOLEAN);   // bool(false)但这不影响我们去尝试。</p>
-<p>6.<em>()<br>呃，这的确也是个 PHP 函数。</em>() 是它的“小名”，它的大名是gettext()。</p>
-<p>&nbsp;</p>
+<p>1. sys_getloadavg();<br>
+这个函数就是Linux的load average值.<br>
+返回一个数组,分别是1,5,15分钟内服务器的负载情况.</p>
+<p>2.get_browser()<br>
+获取客户端浏览器信息。有了这个函数，再也不用自己去分析$_SERVER[‘HTTP_USER_AGENT’] 这个字符串了。<br>
+使用这个函数需要下载一个配置文件:browscap.ini<br>
+放好之后需要在php.ini中设置browscap的路径<br>
+搜索[browscap]<br>
+例如修改为以下内容:<br>
+[browsacp]<br>
+browscap = /etc/php/browscap.ini<br>
+重启你的服务器即可。</p>
+<p>3.glob()<br>
+列出当前目录下的所有文件。</p>
+<p>4.PHP Filter<br>
+如果你还在正则验证字符串，那么就真的“Out”了。自 PHP5.2 版本以后，内置了 PHP Fliter 模块用于专门验证 电子邮件、URL 等是否合法，示例代码：<br>
+var_dump(filter_var(‘bob@example.com’, FILTER_VALIDATE_EMAIL));由于是新生的模块，因此还有很多的陷阱，例如<br>
+filter_var(‘abc’, FILTER_VALIDATE_BOOLEAN); // bool(false)<br>
+filter_var(‘0’, FILTER_VALIDATE_BOOLEAN);   // bool(false)但这不影响我们去尝试。</p>
+<p>6.<em>()<br>
+呃，这的确也是个 PHP 函数。</em>() 是它的“小名”，它的大名是gettext()。</p>
+<p> </p>
 
                 
 

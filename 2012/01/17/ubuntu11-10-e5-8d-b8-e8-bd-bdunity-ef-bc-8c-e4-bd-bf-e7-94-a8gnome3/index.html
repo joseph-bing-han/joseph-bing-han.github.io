@@ -213,23 +213,25 @@
                 post-container">
 
                 <div>
-
-<p>转自<a href="http://my.oschina.net/shootercn/blog/38826" target="_blank" rel="noopener">http://my.oschina.net/shootercn/blog/38826</a></p>
+<p>转自http://my.oschina.net/shootercn/blog/38826</p>
 <p>Ubuntu已经转向Unity了，可是我怎么也习惯不了Unity，反倒是非常喜爱Gnome3。其实在Ubuntu上Unity和Gnome3完全可以共存，但是既然不用Unity，留着还需要更新，干脆删除算了。查了些资料，现在把删除方法总结如下：</p>
 <p>1.在删除前确保Unbutu没有设置自动登录</p>
 <p>2.安装Gnome3：</p>
 <p>sudo apt-get install gnome-shell</p>
 <p>sudo apt-get install gnome-tweak-tool</p>
 <p>3.设置默认登录桌面环境：</p>
-<p>自动登入GNOME SHELL CLASSIC：<br>sudo /usr/lib/lightdm/lightdm-set-defaults -s gnome-classic</p>
-<p>如果喜欢GNOME3，就<br>sudo /usr/lib/lightdm/lightdm-set-defaults -s gnome-shell</p>
+<p>自动登入GNOME SHELL CLASSIC：<br>
+sudo /usr/lib/lightdm/lightdm-set-defaults -s gnome-classic</p>
+<p>如果喜欢GNOME3，就<br>
+sudo /usr/lib/lightdm/lightdm-set-defaults -s gnome-shell</p>
 <p>4.删除Unity：</p>
-<p>sudo apt-get  -y –auto-remove purge unity</p>
-<p>sudo apt-get -y –auto-remove purge unity-commonp</p>
-<p>sudo apt-get -y –auto-remove purge unity-lens*</p>
-<p>sudo apt-get -y –auto-remove purge unity-services</p>
-<p>sudo apt-get -y –auto-remove purge unity-asset-pool</p>
-<h3 id="注意-不能用sudo-apt-get-–auto-removepurge-unity-看软件包列表里-有不少跟"><a href="#注意-不能用sudo-apt-get-–auto-removepurge-unity-看软件包列表里-有不少跟" class="headerlink" title="注意:不能用sudo apt-get –auto-removepurge unity*,看软件包列表里,有不少跟"></a>注意:不能用sudo apt-get –auto-removepurge unity*,看软件包列表里,有不少跟</h3><p>UNITY无关的也列出了。</p>
+<p>sudo apt-get  -y --auto-remove purge unity</p>
+<p>sudo apt-get -y --auto-remove purge unity-commonp</p>
+<p>sudo apt-get -y --auto-remove purge unity-lens*</p>
+<p>sudo apt-get -y --auto-remove purge unity-services</p>
+<p>sudo apt-get -y --auto-remove purge unity-asset-pool</p>
+<h3>注意:不能用sudo apt-get --auto-removepurge unity*,看软件包列表里,有不少跟</h3>
+<p>UNITY无关的也列出了。</p>
 <p>而且 unity-greeter必须保留。如果删了,自己蹲墙边哭一会儿再想办法。</p>
 <p>5.注销，然后再次登录。</p>
 <p>这样就可以使用可爱的Gnome3了。</p>

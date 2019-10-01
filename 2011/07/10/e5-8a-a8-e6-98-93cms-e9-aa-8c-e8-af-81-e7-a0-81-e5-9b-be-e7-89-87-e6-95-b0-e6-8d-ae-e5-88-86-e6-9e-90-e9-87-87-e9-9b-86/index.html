@@ -221,7 +221,7 @@
 <p>2.解析出要识别的验证图片的6个字符的特征码;</p>
 <p>3.取一个要识别的字符的特征码,与所有的字符特征码进行相似度计算,选最大的那个就是识别出的字符.</p>
 <p>4.将步骤3重复6次,识别出一个验证图片的所有验证码</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>基础工作就是采集出所有字符图片的特征码</p>
 <p>我要采集的这个网站使用的是彩色背景的图片验证码,没有噪声.</p>
 <p>所以采集很方便,图片是24位色BMP格式的.</p>
@@ -230,14 +230,77 @@
 <p>每幅图片6个字符,像素数据是逐行记录到数据的,所以要按每个字符的宽带(10像素)分成6个数组记录</p>
 <p>机器识别完成后,人工识别输入正确的验证码.</p>
 <p>根据人工识别的内容把特征码依次存入文件</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>全部代码如下</p>
-<p>&lt;?php<br>error_reporting(0);<br>define(“CODE_SIZE”,6);<br>define(“HEAD_SIZE”,0x36);<br>define(“WIDTH”,10);<br>define(“HEIGHT”,15);<br>// 初始化一个 cURL 对象<br>$curl = curl_init();</p>
-<p>// 设置你需要抓取的URL<br>curl_setopt($curl, CURLOPT_URL, ‘<a href="http://www.xxxxx.com/inc/checkcode.asp&#39;" target="_blank" rel="noopener">http://www.xxxxx.com/inc/checkcode.asp&#39;</a>);</p>
-<p>// 设置header<br>curl_setopt($curl, CURLOPT_HEADER, false);</p>
-<p>// 设置cURL 参数，要求结果保存到字符串中还是输出到屏幕上。<br>curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);</p>
-<p>$all_code=”01234567890abcdefghijklmnopqrstuvwxyz”;<br>$arr_code=array();<br>for($i=0;$i&lt;36;$i++){<br>$word=substr($all_code,$i,1);<br>if(file_exists(“{$word}.txt”))<br>$arr_code[$word]=true;<br>}<br>while(count($arr_code)&lt;36){<br>// 运行cURL，请求网页</p>
-<p>$code_data = curl_exec($curl);<br>$fin = fopen(“tmp.bmp”,”w+b”);<br>fwrite($fin ,$code_data);<br>$data=array();<br>fseek($fin,HEAD_SIZE);<br>for($i=0;$i&lt;HEIGHT;$i++)<br>for($j=0;$j&lt;CODE_SIZE;$j++)<br>for($k=0;$k&lt;WIDTH;$k++){<br>$tmp = unpack(“H6”,fread($fin,3));<br>if($tmp[1]==”000000”)<br>$data[$j].=”1”;<br>else<br>$data[$j].=”0”;<br>}<br>fseek($fin,HEAD_SIZE);<br>echo(“图片解析完毕，内容如下：\n”);<br>$all=””;<br>for($i=0;$i&lt;HEIGHT;$i++){<br>$line=””;<br>for($j=0;$j&lt;CODE_SIZE*WIDTH;$j++){<br>$tmp = unpack(“H6”,fread($fin,3));<br>if($tmp[1]==”000000”)<br>$line.=”■”;<br>else<br>$line.=”□”;<br>}<br>$all=$line.”\n”.$all;<br>$line=””;<br>}<br>echo($all.”请输入人工识别出的字符：”);<br>$code = fgets(STDIN);<br>if($code==”\n”)continue;<br>for($i=0;$i&lt;6;$i++){<br>$word = substr($code,$i,1);<br>if(!isset($arr_code[$word])){<br>$fout = fopen(“{$word}.txt”,”wb”);<br>fwrite($fout,$data[$i]);<br>fclose($fout);<br>$arr_code[$word]=true;<br>}<br>}<br>}<br>echo(“36个字符全部都获得了:)\n”);<br>// 关闭URL请求<br>curl_close($curl);<br>?&gt;</p>
+<p>&lt;?php<br>
+error_reporting(0);<br>
+define(“CODE_SIZE”,6);<br>
+define(“HEAD_SIZE”,0x36);<br>
+define(“WIDTH”,10);<br>
+define(“HEIGHT”,15);<br>
+// 初始化一个 cURL 对象<br>
+$curl = curl_init();</p>
+<p>// 设置你需要抓取的URL<br>
+curl_setopt($curl, CURLOPT_URL, ‘<a href="http://www.xxxxx.com/inc/checkcode.asp" target="_blank" rel="noopener">http://www.xxxxx.com/inc/checkcode.asp</a>’);</p>
+<p>// 设置header<br>
+curl_setopt($curl, CURLOPT_HEADER, false);</p>
+<p>// 设置cURL 参数，要求结果保存到字符串中还是输出到屏幕上。<br>
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);</p>
+<p>$all_code=“01234567890abcdefghijklmnopqrstuvwxyz”;<br>
+$arr_code=array();<br>
+for($i=0;$i&lt;36;$i++){<br>
+$word=substr($all_code,$i,1);<br>
+if(file_exists(&quot;{$word}.txt&quot;))<br>
+$arr_code[$word]=true;<br>
+}<br>
+while(count($arr_code)&lt;36){<br>
+// 运行cURL，请求网页</p>
+<p>$code_data = curl_exec($curl);<br>
+$fin = fopen(“tmp.bmp”,“w+b”);<br>
+fwrite($fin ,$code_data);<br>
+$data=array();<br>
+fseek($fin,HEAD_SIZE);<br>
+for($i=0;$i&lt;HEIGHT;$i++)<br>
+for($j=0;$j&lt;CODE_SIZE;$j++)<br>
+for($k=0;$k&lt;WIDTH;$k++){<br>
+$tmp = unpack(“H6”,fread($fin,3));<br>
+if($tmp[1]==“000000”)<br>
+$data[$j].=“1”;<br>
+else<br>
+$data[$j].=“0”;<br>
+}<br>
+fseek($fin,HEAD_SIZE);<br>
+echo(“图片解析完毕，内容如下：\n”);<br>
+$all=&quot;&quot;;<br>
+for($i=0;$i&lt;HEIGHT;$i++){<br>
+$line=&quot;&quot;;<br>
+for($j=0;$j&lt;CODE_SIZE*WIDTH;$j++){<br>
+$tmp = unpack(“H6”,fread($fin,3));<br>
+if($tmp[1]==“000000”)<br>
+$line.=“■”;<br>
+else<br>
+$line.=“□”;<br>
+}<br>
+$all=$line.&quot;\n&quot;.$all;<br>
+$line=&quot;&quot;;<br>
+}<br>
+echo($all.“请输入人工识别出的字符：”);<br>
+$code = fgets(STDIN);<br>
+if($code==&quot;\n&quot;)continue;<br>
+for($i=0;$i&lt;6;$i++){<br>
+$word = substr($code,$i,1);<br>
+if(!isset($arr_code[$word])){<br>
+$fout = fopen(&quot;{$word}.txt&quot;,“wb”);<br>
+fwrite($fout,$data[$i]);<br>
+fclose($fout);<br>
+$arr_code[$word]=true;<br>
+}<br>
+}<br>
+}<br>
+echo(“36个字符全部都获得了:)\n”);<br>
+// 关闭URL请求<br>
+curl_close($curl);<br>
+?&gt;</p>
 
                 
 

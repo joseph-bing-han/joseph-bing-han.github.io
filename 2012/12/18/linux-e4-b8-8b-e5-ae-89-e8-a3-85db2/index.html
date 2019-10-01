@@ -217,84 +217,112 @@
                 <p>参考文献：</p>
 <p><a href="http://www.ibm.com/developerworks/forums/thread.jspa?threadID=187514" target="_blank" rel="noopener">How-to: Ubuntu 7.10 Server x86 32-bit and DB2 Express-C v9.5</a></p>
 <p><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/index.jsp?topic=/com.ibm.db2.luw.qb.dbconn.doc/doc/c0004770.html" target="_blank" rel="noopener">DB2 v9.7 Infomation Center</a></p>
-<p>&nbsp;</p>
+<p> </p>
 <p>场景：在IBM System x3550服务器上，Ubuntu Server 8.0.4操作系统中以db2_install 命令安装DB2 v9.7 ESE trial数据库。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>一.安装前的步骤</p>
 <p>1.安装几个包，执行命令：</p>
-<p>sudo apt-get install libaio1<br>sudo apt-get install libstdc++5</p>
-<p>&nbsp;</p>
+<p>sudo apt-get install libaio1<br>
+sudo apt-get install libstdc++5</p>
+<p> </p>
 <p>2.copy安装文件到目标系统，并解压缩。如果是从windwos解压缩完再传到Ubuntu上，那么需要设置安装文件及相关的文件以可执行属性。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>3.设置ulimit（Server版这步就略过了）</p>
 <hr>
-<p>﻿修改 Ubuntu ulimit 限制</p>
+<p>修改 Ubuntu ulimit 限制</p>
 <div>
-
-<p>最近，网站一到高峰期，CPU就会飙升到100%，但内存，IO，网络等一切正常，Google了一下，有可能是ulimit的问题，马上查看文件句柄数限制<br><code>ulimit -n</code><br>得到的结果是：1024，这个值对生产中的服务显得偏小。<br>网上给出的解决方案，大部分是直接输入<br><code>ulimit -SHn 51200 # 51200可自己根据应用调整</code><br>此法缺点很明显，一旦退出登陆，设置就失效了。<br>也有说直接把该命令写到/etc/rc.d/rc.local中的，今天找到一个正确的做法<br>1.打开/etc/security/limits.conf，里面有很详细的注释，找到如下设置(如果没有就插入)<br>` * soft nofile 51200</p>
-<ul>
-<li>hard nofile 51200 `</li>
-</ul>
-<p>2.编辑/etc/pam.d/common-session，加入一行<br><code>session required pam_limits.so</code><br>3.编辑/etc/profile，加入<br><code>ulimit -SHn 51200</code><br>重启服务器，再次登陆，查看句柄数，已经正确设置为51200。<br>如果有碰到类似情况，可以检查一下看看是不是文件句柄数设置太小引起的。</p>
-</div>
--------------------------------------
-
-<p>&nbsp;</p>
+<p>最近，网站一到高峰期，CPU就会飙升到100%，但内存，IO，网络等一切正常，Google了一下，有可能是ulimit的问题，马上查看文件句柄数限制<br>
+<code>ulimit -n</code><br>
+得到的结果是：1024，这个值对生产中的服务显得偏小。<br>
+网上给出的解决方案，大部分是直接输入<br>
+<code>ulimit -SHn 51200 # 51200可自己根据应用调整</code><br>
+此法缺点很明显，一旦退出登陆，设置就失效了。<br>
+也有说直接把该命令写到/etc/rc.d/rc.local中的，今天找到一个正确的做法<br>
+1.打开/etc/security/limits.conf，里面有很详细的注释，找到如下设置(如果没有就插入)<br>
+<code>* soft nofile 51200 * hard nofile 51200</code><br>
+2.编辑/etc/pam.d/common-session，加入一行<br>
+<code>session required pam_limits.so</code><br>
+3.编辑/etc/profile，加入<br>
+<code>ulimit -SHn 51200</code><br>
+重启服务器，再次登陆，查看句柄数，已经正确设置为51200。<br>
+如果有碰到类似情况，可以检查一下看看是不是文件句柄数设置太小引起的。</p>
+<h2></h2></div>
+<p> </p>
 <p>4.修改内核参数</p>
 <p>1)查看内核参数</p>
 <p>ipcs -l</p>
 <p>显示如下：</p>
-<div>cuser@localhost:~$ ipcs -l
------- Shared Memory Limits --------
-max number of segments = 4096
-max seg size (kbytes) = 32768
-max total shared memory (kbytes) = 8388608
-min seg size (bytes) = 1
------- Semaphore Limits --------
-max number of arrays = 128
-max semaphores per array = 250
-max semaphores system wide = 32000
-max ops per semop call = 32
-semaphore max value = 32767
------- Messages: Limits --------
-max queues system wide = 16
-max size of message (bytes) = 8192
-default max size of queue (bytes) = 16384</div>
+<div>cuser@localhost:~$ ipcs -l
+------ Shared Memory Limits --------
+max number of segments = 4096
+max seg size (kbytes) = 32768
+max total shared memory (kbytes) = 8388608
+min seg size (bytes) = 1
+------ Semaphore Limits --------
+max number of arrays = 128
+max semaphores per array = 250
+max semaphores system wide = 32000
+max ops per semop call = 32
+semaphore max value = 32767
+------ Messages: Limits --------
+max queues system wide = 16
+max size of message (bytes) = 8192
+default max size of queue (bytes) = 16384</div>
 &nbsp;
-
 <p>2)编辑/etc/sysctl.conf文件。如果此文件不存在，那么应创建它。加入如下内容：</p>
-<div>kernel.sem=250 256000 32 1024
-#示例：用于 64 位系统的 shmmax
+<div>kernel.sem=250 256000 32 1024
+#示例：用于 64 位系统的 shmmax
 kernel.shmmax=1073741824
-#示例：用于4GB内存的 90% 的 shmall
+#示例：用于4GB内存的 90% 的 shmall
 kernel.shmall=943718
 kernel.msgmax=65535
 kernel.msgmnb=65535</div>
 对于这些参数的说明，参考DB2 infocenter：
-
-<p>建议将 SHMMAX 值设置为与系统上物理内存量相等。然而，x86 系统上需要的最小值为 268435456（256 MB），而在 64 位系统上，该值将为 1073741824（1 GB）。<br>缺省情况下，SHMALL 设置为 8 GB（8388608 KB = 8 GB）。如果您具有的物理内存超过此值，并且要将该物理内存用于  DB2，那么此参数增大到大约是计算机的物理内存的 90%。例如，假定计算机系统上有 16 GB 内存，并将这些内存主要用于 DB2，那么  SHMALL 应该设置为 3774873（16 GB 的 90% 为 14.4 GB；将 14.4 GB 除以 4  KB（这是基页大小）得到的结果为 3774873）。IPCS 输出已将 SHMALL  转换为千字节（KB）。这是因为内核需要将此值作为页数。如果要升级到 DB2 版本 9.7 并且没有使用缺省 SHMALL 设置，那么必须将  SHMALL 设置另外增大 4 GB。快速通信管理器（FCM）要求这样增大内存，以供另外的缓冲区或信道使用。<br>内核参数 sem 由以下四个标记组成：SEMMSL、SEMMNS、SEMOPM 和 SEMMNI。SEMMNS 是 SEMMSL 乘以  SEMMNI 的结果。数据库管理器要求根据需要增大数组的数目（SEMMNI）。通常，SEMMNI  应两倍于系统上预期的最大代理程序数乘以数据库服务器计算机上的逻辑分区数再加上数据库服务器计算机上的本地应用程序连接数。<br>MSGMNI 将影响可以启动的代理进程数，MSGMAX 将影响一个队列中可以发送的消息大小，而 MSGMNB 将影响队列大小。<br>应将 MSGMAX 更改为 64 KB（即，65535 个字节），MSGMNB 应增大为 65535。</p>
-<p>&nbsp;</p>
+<p>建议将 SHMMAX 值设置为与系统上物理内存量相等。然而，x86 系统上需要的最小值为 268435456（256 MB），而在 64 位系统上，该值将为 1073741824（1 GB）。<br>
+缺省情况下，SHMALL 设置为 8 GB（8388608 KB = 8 GB）。如果您具有的物理内存超过此值，并且要将该物理内存用于  DB2，那么此参数增大到大约是计算机的物理内存的 90%。例如，假定计算机系统上有 16 GB 内存，并将这些内存主要用于 DB2，那么  SHMALL 应该设置为 3774873（16 GB 的 90% 为 14.4 GB；将 14.4 GB 除以 4  KB（这是基页大小）得到的结果为 3774873）。IPCS 输出已将 SHMALL  转换为千字节（KB）。这是因为内核需要将此值作为页数。如果要升级到 DB2 版本 9.7 并且没有使用缺省 SHMALL 设置，那么必须将  SHMALL 设置另外增大 4 GB。快速通信管理器（FCM）要求这样增大内存，以供另外的缓冲区或信道使用。<br>
+内核参数 sem 由以下四个标记组成：SEMMSL、SEMMNS、SEMOPM 和 SEMMNI。SEMMNS 是 SEMMSL 乘以  SEMMNI 的结果。数据库管理器要求根据需要增大数组的数目（SEMMNI）。通常，SEMMNI  应两倍于系统上预期的最大代理程序数乘以数据库服务器计算机上的逻辑分区数再加上数据库服务器计算机上的本地应用程序连接数。<br>
+MSGMNI 将影响可以启动的代理进程数，MSGMAX 将影响一个队列中可以发送的消息大小，而 MSGMNB 将影响队列大小。<br>
+应将 MSGMAX 更改为 64 KB（即，65535 个字节），MSGMNB 应增大为 65535。</p>
+<p> </p>
 <p>3)运行sysctl 时附带-p参数，以从缺省文件/etc/sysctl.conf中装入sysctl设置：</p>
 <p>sudo sysctl -p</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>二.安装数据库</p>
 <p>1.运行安装命令</p>
 <p>sudo ./db2_install</p>
 <p>2.指定安装路径，一般不更改路径，中文环境键入“是”加回车。</p>
 <p>4.一路安装，末了提示一个警告，说有小错误，不去管它，算是安装完。</p>
-<p>&nbsp;</p>
+<p> </p>
 <p>三.安装后步骤</p>
 <p>1.创建用户和用户组</p>
 <p>1)创建用户组：</p>
-<p>sudo groupadd -g 999 db2iadm1<br>sudo groupadd -g 998 db2fadm1<br>sudo groupadd -g 997 dasadm1<br>2)创建用户：<br>sudo useradd -u 1004 -g db2iadm1 -m -d /home/db2inst1 db2inst1<br>sudo useradd -u 1003 -g db2fadm1 -m -d /home/db2fenc1 db2fenc1<br>sudo useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1<br>3)设置用户的密码<br>sudo passwd db2inst1<br>sudo passwd db2fenc1<br>sudo passwd dasusr1</p>
-<p>&nbsp;</p>
-<p>2.创建DB2管理服务<br>sudo /opt/ibm/db2/V9.7/instance/dascrt -u dasusr1</p>
-<p>3.创建DB2实例<br>sudo /opt/ibm/db2/V9.7/instance/db2icrt -a server -u db2fenc1 db2inst1</p>
-<p>4.设置DB2使用的端口<br>su - db2inst1<br>/bin/bash<br>chsh -s /bin/bash db2inst1（DB2需要bash，这个命令修改默认的sh）</p>
+<p>sudo groupadd -g 999 db2iadm1<br>
+sudo groupadd -g 998 db2fadm1<br>
+sudo groupadd -g 997 dasadm1<br>
+2)创建用户：<br>
+sudo useradd -u 1004 -g db2iadm1 -m -d /home/db2inst1 db2inst1<br>
+sudo useradd -u 1003 -g db2fadm1 -m -d /home/db2fenc1 db2fenc1<br>
+sudo useradd -u 1002 -g dasadm1 -m -d /home/dasusr1 dasusr1<br>
+3)设置用户的密码<br>
+sudo passwd db2inst1<br>
+sudo passwd db2fenc1<br>
+sudo passwd dasusr1</p>
+<p> </p>
+<p>2.创建DB2管理服务<br>
+sudo /opt/ibm/db2/V9.7/instance/dascrt -u dasusr1</p>
+<p>3.创建DB2实例<br>
+sudo /opt/ibm/db2/V9.7/instance/db2icrt -a server -u db2fenc1 db2inst1</p>
+<p>4.设置DB2使用的端口<br>
+su - db2inst1<br>
+/bin/bash<br>
+chsh -s /bin/bash db2inst1（DB2需要bash，这个命令修改默认的sh）</p>
 <p>/home/db2inst1/sqllib/db2profile</p>
 <p>db2 update dbm cfg using svcename 50000</p>
-<p>&nbsp;</p>
-<p>5.设置DB2通讯协议<br>db2set DB2COMM=tcpip<br>6.启动DB2<br>db2start</p>
+<p> </p>
+<p>5.设置DB2通讯协议<br>
+db2set DB2COMM=tcpip<br>
+6.启动DB2<br>
+db2start</p>
 
                 
 

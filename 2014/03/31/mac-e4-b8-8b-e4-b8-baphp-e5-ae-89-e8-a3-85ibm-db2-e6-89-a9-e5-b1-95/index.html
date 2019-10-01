@@ -217,10 +217,13 @@
                 post-container">
 
                 <p>转载请注明来源:<a href="http://blog.joseph-han.net/" title="Blog of Joseph Han" target="_blank" rel="noopener">Blog of Joseph Han</a></p>
-<p><span style="color: #000000;">在Mac下用pecl install ibm_db2为php安装db2扩展一直不成功.<br>今日一同事提点下终于安装上了.</span></p>
-<p><span style="color: #000000;">首先要修改/usr/local/bin/autom4te<br></span>第94行处</p>
-<p>#fatal “need GNU m4 1.4 or later: $m4”</p>
-<p>#if system “$m4 –help &lt;/dev/null 2&gt;&amp;1 | grep reload-state &gt;/dev/null”;<br>注释掉94,95行</p>
+<p><span style="color: #000000;">在Mac下用pecl install ibm_db2为php安装db2扩展一直不成功.<br>
+今日一同事提点下终于安装上了.</span></p>
+<p><span style="color: #000000;">首先要修改/usr/local/bin/autom4te<br>
+</span>第94行处<br>
+#fatal “need GNU m4 1.4 or later: $m4”<br>
+#if system “$m4 --help &lt;/dev/null 2&gt;&amp;1 | grep reload-state &gt;/dev/null”;<br>
+注释掉94,95行</p>
 <p>然后再进行下载编译安装</p>
 
                 

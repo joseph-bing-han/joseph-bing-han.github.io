@@ -221,8 +221,10 @@
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-今日需要备份远程服务器上的代码,但是需要跳过存储附件的目录attache,这样一直使用的scp命令就不好用了.
-使用rsync命令如下:rsync -az –exclude=attache user@remote:/home/xxxx/  ./xxxx
+今日需要备份远程服务器上的代码,但是需要跳过存储附件的目录attache,这样
+一直使用的scp命令就不好用了.
+使用rsync命令如下:
+rsync -az --exclude=attache user@remote:/home/xxxx/  ./xxxx
 ...
         </div>
     </a>
@@ -255,8 +257,10 @@
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-jadclipse不能运行 点击类就报 Unmatched braces in the pattern 错误在网上找到的都是用切回英文的办法,很不爽,这样我还费劲装什么中文语言包干嘛?因噎废食啊!
-终于找到了个从根本上解决的办法,居然又是该语言包,看了eclipse的babel项目bug不少啊.修改语言包org.eclipse.jdt.c......
+jadclipse不能运行 点击类就报 Unmatched braces in the pattern 错误
+在网上找到的都是用切回英文的办法,很不爽,这样我还费劲装什么中文语言包干嘛?因噎废食啊!
+终于找到了个从根本上解决的办法,居然又是该语言包,看了eclipse的babel项目bug不少啊.
+修改语言包org.eclipse.jdt......
         </div>
     </a>
     
@@ -325,7 +329,7 @@ jadclipse不能运行 点击类就报 Unmatched braces in the pattern 错误在�
         <div class="post-content-preview">
             转自seven407的专栏
 Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk实例并且可以通过TCP/IP流发送命令或读取事件。这在试图跟踪asterisk的状态或其中的电话客户端状态时很有用，AMI说明了客户端基于的一般(可能是动态的)规则。
-一种简单的”key: value”协议用于已连接的管理客户端和asteriskＰＢＸ之间的信息传递。每行都用回车换行（/......
+一种简单的&quot;key: value&quot;协议用于已连接的管理客户端和asteriskＰＢＸ之间的信息传递。......
         </div>
     </a>
     
@@ -357,7 +361,8 @@ Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk�
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-我的笔记本是神州T1600的，集成的SIS的显示芯片，在linux下兼容性不是很好，经常会出各种问题。最新版的ubuntu10.04已经出了，预计对这倒霉本子支持会好一点，安装过程如下：1.在Windows7下进行wubi模式安装，修改Safe graphic mode的参数，追加 vga=788 重启后选Safe graphic mod......
+我的笔记本是神州T1600的，集成的SIS的显示芯片，在linux下兼容性不是很好，经常会出各种问题。最新版的ubuntu10.04已经出了，预计对这倒霉本子支持会好一点，安装过程如下：
+1.在Windows7下进行wubi模式安装，修改Safe graphic mode的参数，追加 vga=788 重启后选Safe graphic mo......
         </div>
     </a>
     
@@ -387,7 +392,15 @@ Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk�
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-工作用的台机的Ubuntu Desktop从9.10升级到10.04后出了各种各样的问题，为了彻底解决，决定重新安装。这次直接装Server版，然后手工装ubuntu-desktop。安装过程如下：*备份个人数据**将/home下数据打包**开始安装切换到WindowsXP**到http://archive.ubuntu.com/ubun......
+工作用的台机的Ubuntu Desktop从9.10升级到10.04后出了各种各样的问题，为了彻底解决，决定重新安装。这次直接装Server版，然后手工装ubuntu-desktop。安装过程如下：
+**
+备份个人数据**
+将/home下数据打包
+**
+开始安装
+切换到WindowsXP
+*到
+http://archive.ubuntu.......
         </div>
     </a>
     
@@ -417,7 +430,8 @@ Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk�
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-执行sudo apt-get remove indicator-messages
+执行
+sudo apt-get remove indicator-messages
 然后重启XWindow
 ...
         </div>
@@ -449,7 +463,9 @@ Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk�
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-使用下面两行命令$sudo cp /etc/fonts/conf.d/49-sansserif.conf /etc/fonts/conf.d/49-sansserif.conf.bak$sudo rm /etc/fonts/conf.d/49-sansserif.conf
+使用下面两行命令
+$sudo cp /etc/fonts/conf.d/49-sansserif.conf /etc/fonts/conf.d/49-sansserif.conf.bak
+$sudo rm /etc/fonts/conf.d/49-sansserif.conf
 ...
         </div>
     </a>
@@ -480,7 +496,12 @@ Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk�
         </h3>
         <div class="post-content-preview">
             转载请注明来源:Blog of Joseph Han
-今天装red5时才注意到ubuntu 10.04默认安装的jdk居然是open-jdk10.04安装源里移除了sun的jdk所以只好手工加了$ sudo add-apt-repository “deb http://archive.canonical.com/ lucid partner”$ sudo apt-get update$ su......
+今天装red5时才注意到
+ubuntu 10.04默认安装的jdk居然是open-jdk
+10.04安装源里移除了sun的jdk
+所以只好手工加了
+$ sudo add-apt-repository “deb http://archive.canonical.com/ lucid partner”
+$ sudo apt-get updat......
         </div>
     </a>
     
@@ -513,7 +534,13 @@ Asterisk控制接口（AMI）允许管理客户端程序连接到一个asterisk�
             
         </h3>
         <div class="post-content-preview">
-            java.version Java 运行时环境版本java.vendor Java 运行时环境供应商java.vendor.url Java 供应商的 URLjava.home Java 安装目录java.vm.specification.version Java 虚拟机规范版本java.vm.specification.vendor Java 虚拟机规范供应商java.vm.specifi......
+            java.version Java 运行时环境版本
+java.vendor Java 运行时环境供应商
+java.vendor.url Java 供应商的 URL
+java.home Java 安装目录
+java.vm.specification.version Java 虚拟机规范版本
+java.vm.specification.vendor Java 虚拟机规范供应商
+java.vm.s......
         </div>
     </a>
     

@@ -217,10 +217,25 @@
                 post-container">
 
                 <p><span style="color: #ff0000;">转载请注明来源:</span><a href="../" title="Blog of Joseph Han">Blog of Joseph Han</a></p>
-<p>昨天刚刚安装了eclipse3.6+Babel Language Packs-0.8.0 简体中文包.<br>总体感觉不错,甚至比3.5还流畅(不知道是不是错觉).<br>全都都设置好后开始开发,<br>使用中才发现,自动提示/自动补全时的提示框,每行内容里都多了一堆的东西,把Tip的长度都拉长了<br>看起来很不方便,就像下面这个样子<br><a href="http://ffblog-wordpress.stor.sinaapp.com/uploads/2011/07/eclipse.jpg" target="_blank" rel="noopener"><img src="http://ffblog-wordpress.stor.sinaapp.com/uploads/2011/07/eclipse.jpg" alt title="eclipse"></a><br>看起来非常别扭.<br>于是开始google原因,用”<span style="color: #ff0000;">JavaElementLabels_comma_string</span>“做关键字进行检索,内容不是很多<br>最终把目标锁定在了eclipse源码中,发现是一个文言key<br>恍然大悟–原来是中文包的问题<br>以英文为默认语言重启eclipse,果然一切正常.</p>
-<p>先自己修正,然后再说别的<br>1.解包org.eclipse.jdt.ui.nl_zh_3.6.0.v20100814043401.jar<br>2.将文件org.eclipse.jdt.internal.ui.JavaUIMessages_zh.properties第103~109行全部删除<br>3.重新打包</p>
-<p>重启eclipse,<br>终于正常了</p>
-<p>我从eclipse2.1开始就用的中文版,从来没遇到过语言包的bug<br>这次是涨见识了<img src="http://img.baidu.com/hi/face/i_f07.gif" alt></p>
+<p>昨天刚刚安装了eclipse3.6+Babel Language Packs-0.8.0 简体中文包.<br>
+总体感觉不错,甚至比3.5还流畅(不知道是不是错觉).<br>
+全都都设置好后开始开发,<br>
+使用中才发现,自动提示/自动补全时的提示框,每行内容里都多了一堆的东西,把Tip的长度都拉长了<br>
+看起来很不方便,就像下面这个样子<br>
+<a href="http://ffblog-wordpress.stor.sinaapp.com/uploads/2011/07/eclipse.jpg" target="_blank" rel="noopener"><img src="http://ffblog-wordpress.stor.sinaapp.com/uploads/2011/07/eclipse.jpg" alt title="eclipse"></a><br>
+看起来非常别扭.<br>
+于是开始google原因,用&quot;<span style="color: #ff0000;">JavaElementLabels_comma_string</span>&quot;做关键字进行检索,内容不是很多<br>
+最终把目标锁定在了eclipse源码中,发现是一个文言key<br>
+恍然大悟–原来是中文包的问题<br>
+以英文为默认语言重启eclipse,果然一切正常.</p>
+<p>先自己修正,然后再说别的<br>
+1.解包org.eclipse.jdt.ui.nl_zh_3.6.0.v20100814043401.jar<br>
+2.将文件org.eclipse.jdt.internal.ui.JavaUIMessages_zh.properties第103~109行全部删除<br>
+3.重新打包</p>
+<p>重启eclipse,<br>
+终于正常了</p>
+<p>我从eclipse2.1开始就用的中文版,从来没遇到过语言包的bug<br>
+这次是涨见识了<img src="http://img.baidu.com/hi/face/i_f07.gif" alt></p>
 <p>准备在eclipse的Bugzilla上申请个账号,给Babel Language Packs项目提bug去<img src="http://img.baidu.com/hi/face/i_f47.gif" alt></p>
 
                 

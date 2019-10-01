@@ -215,21 +215,50 @@
                 post-container">
 
                 <p><span style="color: #ff0000;">转载请注明来源:</span><a href="../" title="Blog of Joseph Han">Blog of Joseph Han</a></p>
-<p>最近在写个实用的Google App Engine应用–家庭记账系统,用于以家庭为单位,记录收支账目.<br>开发中,想实现一个带有继承关系的持久化类(JDO方式),以便在父类中实现例如id,createDate,createBy,deleted之类的,<br>所有子类都包括的属性,简化子类编码.<br>开始的代码如下:</p>
-<p>public class BasePo {<br>@Persistent<br>protected Date createDate = new Date();<br>@Persistent<br>protected Long createBy;<br>}</p>
-<p>@PersistenceCapable(identityType = IdentityType.APPLICATION)<br>public class User extends BasePo {<br>@PrimaryKey<br>@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)<br>protected Long id;<br>}</p>
+<p>最近在写个实用的Google App Engine应用–家庭记账系统,用于以家庭为单位,记录收支账目.<br>
+开发中,想实现一个带有继承关系的持久化类(JDO方式),以便在父类中实现例如id,createDate,createBy,deleted之类的,<br>
+所有子类都包括的属性,简化子类编码.<br>
+开始的代码如下:</p>
+<p>public class BasePo {<br>
+@Persistent<br>
+protected Date createDate = new Date();<br>
+@Persistent<br>
+protected Long createBy;<br>
+}</p>
+<p>@PersistenceCapable(identityType = IdentityType.APPLICATION)<br>
+public class User extends BasePo {<br>
+@PrimaryKey<br>
+@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)<br>
+protected Long id;<br>
+}</p>
 <p>开始用的时候,感觉保存,查找都还算正常.</p>
 <p>结果今天仔细验证数据内容才发现,子类实例的createDate,createBy等从BasePo继承的自段根本就没有被持久化<img src="http://img.baidu.com/hi/face/i_f31.gif" alt></p>
-<p>google了一大气,也没有找到这方面的中文资料,还好最后找到了英文的.<br>DataNucleus的官方说明:<a href="http://www.datanucleus.org/products/accessplatform_1_1/jdo/orm/inheritance.html" target="_blank" rel="noopener">http://www.datanucleus.org/products/accessplatform_1_1/jdo/orm/inheritance.html</a></p>
-<p>“<span style="color: #ff0000;">Superclass table</span>“的会有一个父类表,而且数据量是随子类数据量而增大的,会影响效率.<br>“<span style="color: #ff0000;">Complete table</span>“每个子类都会有一张表,就选这个方法了<img src="http://img.baidu.com/hi/face/i_f01.gif" alt></p>
+<p>google了一大气,也没有找到这方面的中文资料,还好最后找到了英文的.<br>
+DataNucleus的官方说明:<a href="http://www.datanucleus.org/products/accessplatform_1_1/jdo/orm/inheritance.html" target="_blank" rel="noopener">http://www.datanucleus.org/products/accessplatform_1_1/jdo/orm/inheritance.html</a></p>
+<p>&quot;<span style="color: #ff0000;">Superclass table</span>&quot;的会有一个父类表,而且数据量是随子类数据量而增大的,会影响效率.<br>
+&quot;<span style="color: #ff0000;">Complete table</span>&quot;每个子类都会有一张表,就选这个方法了<img src="http://img.baidu.com/hi/face/i_f01.gif" alt></p>
 <p>修改后的代码如下:</p>
-<p>@PersistenceCapable(identityType = IdentityType.APPLICATION)<br>@Inheritance(customStrategy = “complete-table”)<br>public class BasePo {</p>
-<p>@PrimaryKey<br>@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)<br>protected Long id;</p>
-<p>@Persistent<br>protected Date createDate = new Date();</p>
-<p>@Persistent<br>protected Long createBy;<br>}<br>@PersistenceCapable(identityType = IdentityType.APPLICATION)<br>public class User extends BasePo {<br>}</p>
+<p>@PersistenceCapable(identityType = IdentityType.APPLICATION)<br>
+@Inheritance(customStrategy = “complete-table”)<br>
+public class BasePo {</p>
+<p>@PrimaryKey<br>
+@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)<br>
+protected Long id;</p>
+<p>@Persistent<br>
+protected Date createDate = new Date();</p>
+<p>@Persistent<br>
+protected Long createBy;<br>
+}<br>
+@PersistenceCapable(identityType = IdentityType.APPLICATION)<br>
+public class User extends BasePo {<br>
+}</p>
 <p>子类直接继承BasePo连主键都不需要声明了.</p>
 <p>实际测试,增删改查都没有问题.</p>
-<p>ps:以前就一直想在GAE里做成这种带继承的JDO持久化类,一直没有找到资料,<br>网上中文的GAE资料就很少(大部分还是p版而不是j版的),<br>介绍如何用JDO的就几乎没有了(可能是因为太基础了,大家都省略不提了,可苦了我这种从C转到java的人了<img src="http://img.baidu.com/hi/face/i_f03.gif" alt>)<br>所以特意把自己的经历写出来,希望能帮助到类似我这样的人.<br>本人E文很烂,如果对上面的资料理解的有误,希望大家能给指正.</p>
+<p>ps:以前就一直想在GAE里做成这种带继承的JDO持久化类,一直没有找到资料,<br>
+网上中文的GAE资料就很少(大部分还是p版而不是j版的),<br>
+介绍如何用JDO的就几乎没有了(可能是因为太基础了,大家都省略不提了,可苦了我这种从C转到java的人了<img src="http://img.baidu.com/hi/face/i_f03.gif" alt>)<br>
+所以特意把自己的经历写出来,希望能帮助到类似我这样的人.<br>
+本人E文很烂,如果对上面的资料理解的有误,希望大家能给指正.</p>
 
                 
 

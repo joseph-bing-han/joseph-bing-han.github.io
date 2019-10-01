@@ -217,19 +217,60 @@
                 post-container">
 
                 <p>转载请注明来源:<a href="http://blog.joseph-han.net/" title="Blog of Joseph Han" target="_blank" rel="noopener">Blog of Joseph Han</a></p>
-<p>最进想实验Facebook的Hipop for php<br>结果发现官方支持的是64位系统，在我的系统中无法安装。<br>还有有高人改出了32位系统专用的版本，checkout出来后编译安装成功，特记录下安装过程，以防忘记。</p>
-<p>sudo apt-get install git-core cmake g++ libboost-dev flex  bison re2c libmysqlclient-dev libxml2-dev libmcrypt-dev libicu-dev  openssl binutils-dev libcap-dev libgd2-xpm-dev zlib1g-dev libtbb-dev  libonig-dev libpcre3-dev autoconf libtool libcurl4-openssl-dev  libboost-system-dev libboost-program-options-dev  libboost-filesystem-dev wget libmemcached-dev<br>注：我的系统因为进行过升级，部分内容版本过高，均强制指定使用低版本<br>cd ~/code/<br>mkdir make<br>cd make<br>git clone git://github.com/metagoto/hiphop-php.git<br>cd hiphop-php<br>export CMAKE_PREFIX_PATH=<code>/bin/pwd</code>/..<br>export HPHP_HOME=<code>/bin/pwd</code><br>export HPHP_LIB=<code>/bin/pwd</code>/bin<br>git submodule init<br>git submodule update</p>
-<p>fatal: reference is not a tree: 208b1a075c2448e1fc0c61d4bb268b161a3d992a<br>Unable to checkout ‘208b1a075c2448e1fc0c61d4bb268b161a3d992a’ in submodule path ‘src/third_party/libmbfl’</p>
-<p>这个错误是因为包libmbfl已经改名为libmbf-old，而上面的代码中还没来得及做相应的修改，解决方法是将libmbf-old源代码下载<br>cd src/third_party/<br>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:scottmac/libmbfl-old.git<br>cp -r libmbfl-old/* libmbfl/</p>
-<p>cd ../../../</p>
-<p>wget <a href="https://github.com/downloads/libevent/libevent/libevent-1.4.13-stable.tar.gz" target="_blank" rel="noopener">https://github.com/downloads/libevent/libevent/libevent-1.4.13-stable.tar.gz</a><br>tar -xzvf libevent-1.4.13-stable.tar.gz</p>
-<p>cd libevent-1.4.13-stable/<br>cp ../hiphop-php/src/third_party/libevent.fb-changes.diff ./<br>patch -p0 &lt; libevent.fb-changes.diff</p>
-<p>这里需要说明的是：-p0 这个参数和官方安装教程不一样，官方用的是 -p1，patch过程中出错的可以都试试。<br>patch过程非常重要，不能出一点差错，否则后续工作将无法进行，即使安装上了，后面安装hiphop时也会抛出该包不是hiphop版本的错误。</p>
-<p>./configure –prefix=$CMAKE_PREFIX_PATH<br>make<br>make install</p>
-<p>wget <a href="http://curl.haxx.se/download/curl-7.20.0.tar.gz" target="_blank" rel="noopener">http://curl.haxx.se/download/curl-7.20.0.tar.gz</a><br>tar -xvzf curl-7.20.0.tar.gz<br>cd curl-7.20.0<br>cp ../hiphop-php/src/third_party/libcurl.fb-changes.diff ./<br>patch -p0 &lt; libcurl.fb-changes.diff<br>./configure –prefix=$CMAKE_PREFIX_PATH<br>make<br>make install<br>cd ..</p>
-<p>git clone git://github.com/bagder/curl.git<br>cd curl<br>cat ../hiphop-php/src/third_party/libcurl-7.22.1.fb-changes.diff | patch -p0<br>./buildconf<br>./configure –prefix=$CMAKE_PREFIX_PATH<br>make<br>make install<br>cd ..</p>
-<p>cd hiphop-php<br>cmake .<br>make</p>
-<p>安装成功后编译一个test.php试试<br>~/make/hiphop-php/src/hphp/hphp test.php –keep-tempdir=1 –log=3</p>
+<p>最进想实验Facebook的Hipop for php<br>
+结果发现官方支持的是64位系统，在我的系统中无法安装。<br>
+还有有高人改出了32位系统专用的版本，checkout出来后编译安装成功，特记录下安装过程，以防忘记。</p>
+<p>sudo apt-get install git-core cmake g++ libboost-dev flex  bison re2c libmysqlclient-dev libxml2-dev libmcrypt-dev libicu-dev  openssl binutils-dev libcap-dev libgd2-xpm-dev zlib1g-dev libtbb-dev  libonig-dev libpcre3-dev autoconf libtool libcurl4-openssl-dev  libboost-system-dev libboost-program-options-dev  libboost-filesystem-dev wget libmemcached-dev<br>
+注：我的系统因为进行过升级，部分内容版本过高，均强制指定使用低版本<br>
+cd ~/code/<br>
+mkdir make<br>
+cd make<br>
+git clone git://github.com/metagoto/hiphop-php.git<br>
+cd hiphop-php<br>
+export CMAKE_PREFIX_PATH=<code>/bin/pwd</code>/…<br>
+export HPHP_HOME=<code>/bin/pwd</code><br>
+export HPHP_LIB=<code>/bin/pwd</code>/bin<br>
+git submodule init<br>
+git submodule update</p>
+<p>fatal: reference is not a tree: 208b1a075c2448e1fc0c61d4bb268b161a3d992a<br>
+Unable to checkout ‘208b1a075c2448e1fc0c61d4bb268b161a3d992a’ in submodule path ‘src/third_party/libmbfl’</p>
+<p>这个错误是因为包libmbfl已经改名为libmbf-old，而上面的代码中还没来得及做相应的修改，解决方法是将libmbf-old源代码下载<br>
+cd src/third_party/<br>
+git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:scottmac/libmbfl-old.git<br>
+cp -r libmbfl-old/* libmbfl/</p>
+<p>cd …/…/…/</p>
+<p>wget <a href="https://github.com/downloads/libevent/libevent/libevent-1.4.13-stable.tar.gz" target="_blank" rel="noopener">https://github.com/downloads/libevent/libevent/libevent-1.4.13-stable.tar.gz</a><br>
+tar -xzvf libevent-1.4.13-stable.tar.gz</p>
+<p>cd libevent-1.4.13-stable/<br>
+cp …/hiphop-php/src/third_party/libevent.fb-changes.diff ./<br>
+patch -p0 &lt; libevent.fb-changes.diff</p>
+<p>这里需要说明的是：-p0 这个参数和官方安装教程不一样，官方用的是 -p1，patch过程中出错的可以都试试。<br>
+patch过程非常重要，不能出一点差错，否则后续工作将无法进行，即使安装上了，后面安装hiphop时也会抛出该包不是hiphop版本的错误。</p>
+<p>./configure --prefix=$CMAKE_PREFIX_PATH<br>
+make<br>
+make install</p>
+<p>wget <a href="http://curl.haxx.se/download/curl-7.20.0.tar.gz" target="_blank" rel="noopener">http://curl.haxx.se/download/curl-7.20.0.tar.gz</a><br>
+tar -xvzf curl-7.20.0.tar.gz<br>
+cd curl-7.20.0<br>
+cp …/hiphop-php/src/third_party/libcurl.fb-changes.diff ./<br>
+patch -p0 &lt; libcurl.fb-changes.diff<br>
+./configure --prefix=$CMAKE_PREFIX_PATH<br>
+make<br>
+make install<br>
+cd …</p>
+<p>git clone git://github.com/bagder/curl.git<br>
+cd curl<br>
+cat …/hiphop-php/src/third_party/libcurl-7.22.1.fb-changes.diff | patch -p0<br>
+./buildconf<br>
+./configure --prefix=$CMAKE_PREFIX_PATH<br>
+make<br>
+make install<br>
+cd …</p>
+<p>cd hiphop-php<br>
+cmake .<br>
+make</p>
+<p>安装成功后编译一个test.php试试<br>
+~/make/hiphop-php/src/hphp/hphp test.php --keep-tempdir=1 --log=3</p>
 
                 
 
