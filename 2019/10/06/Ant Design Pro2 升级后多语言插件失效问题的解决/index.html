@@ -214,13 +214,12 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>近日更新了Ant Design Pro2后, 出现了多语言插件失效的问题, 提示如下:</p>
+                <p>è¿æ¥æ´æ°äºAnt Design Pro2å, åºç°äºå¤è¯­è¨æä»¶å¤±æçé®é¢, æç¤ºå¦ä¸:</p>
 <p><img src="/images/2019-10-07-10-13-04.png" alt="locale error"></p>
-<p>发现是umijs更新后, 多语言插件的包名变更了</p>
-<p>旧版本</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi/locale'</span>;</span><br></pre></td></tr></table></figure>
-<p>新版本</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi/locale'</span>;</span><br></pre></td></tr></table></figure>
+<p>åç°æ¯umijsæ´æ°å, å¤è¯­è¨æä»¶çå<br>
+ååæ´äº</p>
+<p>æ§çæ¬</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, Fe, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi-plugin-locale'</span>;</span><br></pre></td></tr></table></figure>
 <p>修改全部引用的代码后, 问题就能解决</p>
 
                 
