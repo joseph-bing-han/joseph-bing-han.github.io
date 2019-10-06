@@ -88,7 +88,9 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#react antd.pro" title="react antd.pro">react antd.pro</a>
+                              <a class="tag" href="/tags/#react" title="react">react</a>
+                            
+                              <a class="tag" href="/tags/#antd.pro" title="antd.pro">antd.pro</a>
                             
                         </div>
                         <h1>Ant Design Pro2 升级后多语言插件失效问题的解决</h1>
@@ -212,12 +214,14 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>æè¿ä¸æ¬¡æ´æ°Ant Design Pro2å,åºç°äºå¤è¯­è¨æä»¶å¤±æé®é¢, éè¯¯æç¤ºå¦ä¸:</p>
-<p>![locale error](/images/2019-10-版本:</p>
+                <p>近日更新了Ant Design Pro2后, 出现了多语言插件失效的问题, 提示如下:</p>
+<p><img src="/images/2019-10-07-10-13-04.png" alt="locale error"></p>
+<p>发现是umijs更新后, 多语言插件的包名变更了</p>
+<p>旧版本</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi/locale'</span>;</span><br></pre></td></tr></table></figure>
 <p>新版本</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, FormattedMestMessage, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi/locale'</span>;</span><br></pre></td></tr></table></figure>
-<p>æ</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi/locale'</span>;</span><br></pre></td></tr></table></figure>
+<p>修改全部引用的代码后, 问题就能解决</p>
 
                 
 
@@ -285,7 +289,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#react antd.pro" title="react antd.pro">react antd.pro</a>
+                          <a class="tag" href="/tags/#react" title="react">react</a>
+                        
+                          <a class="tag" href="/tags/#antd.pro" title="antd.pro">antd.pro</a>
                         
                     </div>
                 </section>
