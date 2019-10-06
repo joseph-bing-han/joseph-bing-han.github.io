@@ -220,12 +220,13 @@
             
         </h3>
         <div class="post-content-preview">
-            è¿æ¥æ´æ°äºAnt Design Pro2å, åºç°äºå¤è¯­è¨æä»¶å¤±æçé®é¢, æç¤ºå¦ä¸:
+            最近一次更新Ant Design Pro2后,出现了多语言插件失效问题, 错误提示如下:
 
-åç°æ¯umijsæ´æ°å, å¤è¯­è¨æä»¶çå
-ååæ´äº
-æ§çæ¬
-1import &#123; formatMessage, Fe, For......
+仔细查找后发现, 是umijs升级后,多语言插件包名变更了
+旧版本:
+1import &#123; formatMessage, FormattedMessage &#125; from 'umi/locale';
+新版本:
+1import &#123; formatMessage, Formatte......
         </div>
     </a>
     

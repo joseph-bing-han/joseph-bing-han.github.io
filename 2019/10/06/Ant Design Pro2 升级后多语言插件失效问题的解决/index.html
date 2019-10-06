@@ -214,13 +214,14 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>è¿æ¥æ´æ°äºAnt Design Pro2å, åºç°äºå¤è¯­è¨æä»¶å¤±æçé®é¢, æç¤ºå¦ä¸:</p>
-<p><img src="/images/2019-10-07-10-13-04.png" alt="locale error"></p>
-<p>åç°æ¯umijsæ´æ°å, å¤è¯­è¨æä»¶çå<br>
-ååæ´äº</p>
-<p>æ§çæ¬</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, Fe, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi-plugin-locale'</span>;</span><br></pre></td></tr></table></figure>
-<p>修改全部引用的代码后, 问题就能解决</p>
+                <p>最近一次更新Ant Design Pro2后,出现了多语言插件失效问题, 错误提示如下:</p>
+<p><img src="/images/2019-10-07-10-13-04.png" alt></p>
+<p>仔细查找后发现, 是umijs升级后,多语言插件包名变更了</p>
+<p>旧版本:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi/locale'</span>;</span><br></pre></td></tr></table></figure>
+<p>新版本:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; formatMessage, FormattedMessage &#125; <span class="keyword">from</span> <span class="string">'umi-plugin-locale'</span>;</span><br></pre></td></tr></table></figure>
+<p>全部包引用修改完就能修复这个问题</p>
 
                 
 
